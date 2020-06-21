@@ -8,6 +8,7 @@ const papaparseOptions = {
   transformHeader: (header) => header.toLowerCase().replace(/\W/g, "_")
 };
 
+//const handleForce = (data, fileInfo) => console.log(data, fileInfo);
 export function DataImporter({ onDataUpload }) {
     return (
     <div className="container">

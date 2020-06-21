@@ -50,7 +50,8 @@ function App() {
   // return <div />
 
   const [data, setData] = useState(getBrowserData());
-
+  const handleForce = (data, fileInfo) => console.log(data, fileInfo);
+  
   function handleDataUpload(data) {
     //we are updating the state to whatever the data is in local storage
     //accepts the new state value (data from local storage) and re-renders the component (data?)
@@ -70,12 +71,17 @@ function App() {
 
   return (
     <div>
-    Rendered by react!
-    
+    <DataImporter onDataUpload={handleDataUpload}/>
+    <button onClick={clearData}> Clear Data</button>
+    <ProjectData data={data}/>
 
-    <DataImporter onDataUpload={handleDataUpload} /> 
+    {/* <ProjectData>
+    </ProjectData> */}
+
+
+    {/* <DataImporter onDataUpload={handleDataUpload} /> 
       <button onClick={clearData}> Clear Data</button>
-      {data.map((d, index) => <ProjectData key={index} data={d} />)}   
+      {data.map((d, index) => <ProjectData key={index} data={d} />)}    */}
     
       {/* custom renderer for this marker
       {({ styles, date }) => {
@@ -87,11 +93,6 @@ function App() {
         return <div style={customStyles}  />
       }} */}
   </div>
-    
-  
-   
-  
-
 );
 }
 

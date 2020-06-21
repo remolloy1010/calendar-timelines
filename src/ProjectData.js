@@ -1,15 +1,12 @@
 import React from 'react';
-import Timeline, { 
-    TimelineMarkers,
-    TodayMarker }
-    from 'react-calendar-timeline'
+import Timeline from 'react-calendar-timeline'
   // make sure you include the timeline stylesheet or the timeline will not be styled
   import './Timeline.css'
   import moment from 'moment'
 
 
 
-const progress = 'Complete'
+// const progress = 'Complete'
 //const colorIcon = iconColors('Complete')
 
 // Constants for styles:
@@ -44,8 +41,8 @@ const styles = {
   customIconStyle: {
     // backgroundColor: iconColors.Complete,
     backgroundColor: 'green',
-    borderStyle: BORDER_STYLE,
-    borderColor: iconBorders.Complete,
+    borderColor: 'white',
+    borderStyle: 'solid',
     borderWidth: BORDER_WIDTH,
     transform: 'rotate(45deg)',
     height: ICON_HEIGHT,
@@ -67,174 +64,118 @@ const oneYearLater = moment().endOf('month').add(1, 'years');
 
 
 
-// {
-//     id: 1,
-//     group: 1,
-//     //title: 'item 1',
-//     style: {
-//       background: 'red',
-//       marginLeft: 100
-//     },
-//     start_time: new Date('3/6/2020'),
-//     end_time: new Date('5/9/2020'),
-//     itemProps: {
-//       style: {
-//         background: 'blue',
-//         borderColor: 'blue',
-//         left: '50%',
-//       }
-//     }
-//   },
-// const groups = [
-//     { 
-//       id: 1, 
-//       title: 'Project 1', 
-//       stackItems: true,
-//       rightTitle: 'hi'
-//     },
-//     { 
-//       id: 2, 
-//       title: 'Project 2', 
-//       stackItems: true 
-//     }, 
-//     { 
-//       id: 3, 
-//       title: 'Project 3',
-//       stackItems: true 
-//     }, 
-//     { 
-//       id: 4, 
-//       title: 'Project 4',
-//       stackItems: false 
-//     },
-//     { 
-//       id: 5, 
-//       title: 'Project 5',
-//       stackItems: false 
-//     }
-//   ]
+function projectedDateColor(projectedDate, targetDate, commitDate) {
+  const totalDateLength = commitDate.getTime() - targetDate.getTime()
+  const dateToCommitment = (projectedDate.getTime() - targetDate.getTime())/totalDateLength
   
-//   const items = [
-//     {
-//       id: 1,
-//       group: 1,
-//       //title: 'item 1',
-//       style: {
-//         background: 'red',
-//         marginLeft: 100
-//       },
-//       start_time: new Date('3/6/2020'),
-//       end_time: new Date('5/9/2020'),
-//       itemProps: {
-//         style: {
-//           background: 'blue',
-//           borderColor: 'blue',
-//           left: '50%',
-//         }
-//       }
-//     },
-//     {
-//       id: 6,
-//       group: 1,
-//       title: <div style={{...styles.customIconStyle, backgroundColor: 'green'}}/>,
-//       start_time: new Date('2/27/2020'),
-//       end_time: new Date('2/27/2020'),
-//       itemProps: {
-//         style: {
-//           background: 'rgb(0,0,0,0)',
-//           borderColor: 'rgb(0,0,0,0)',
-//           width: 0
-//         }
-//       }
-//     },
-//     {
-//       id: 2,
-//       group: 2,
-//       //title:  'item 2',
-//       start_time: new Date('5/5/2020'),
-//       end_time: new Date('6/7/2020'),
-//       itemProps: {
-//         style: {
-//           background: 'pink',
-//           borderColor: 'pink',
-//         }
-//       }
-//     },
-//     {
-//       id: 3,
-//       group: 3,
-//       //title: 'item 3',
-//       start_time: new Date('4/7/2020'),
-//       end_time: new Date('6/7/2020'),
-//       itemProps: {
-//         style: {
-//           background: 'red',
-//           borderColor: 'red',
-//         }
-//       }
-//     },
-//     {
-//       id: 4,
-//       group: 4,
-//       //title: 'item 4',
-//       start_time: new Date('6/6/2020'),
-//       end_time: new Date('9/9/2020'),
-//       itemProps: {
-//         style: {
-//           background: 'purple',
-//           borderColor: 'purple',
-//         }
-//       }
-      
-//     },
-//     {
-//       id: 5,
-//       group: 4,
-//       title: <div style={styles.customIconStyle}/>,
-//       start_time: new Date('6/8/2020'),
-//       end_time: new Date('6/8/2020'),
-//       itemProps: {
-//         style: {
-//           background: 'rgb(0,0,0,0)',
-//           borderColor: 'rgb(0,0,0,0)',
-//           width: 0
-//         }
-//       }
-//     }
-//   ]
+  if (dateToCommitment <= 0.25) {
+    return 'red'
+  }
+  else if(dateToCommitment <= 0.75) {
+    return'yellow'
+  }
+  else if (dateToCommitment > 0.75) {
+    //const dateLength = commitDate.getTime() - targetDate.getTime()
+    return 'green'
+  }
+  else {
+    return "error"
+  }
+  // console.log(dateToCommitment)
+  //let diamondColor = (projectedDate > targetDate ? 'green' : 'red')
+  //return diamondColor
+}
+
+function isProjectComplete(completeYorN, projectedDate, targetDate, commitDate) {
+  return (completeYorN == 'Y' ? projectedDateColor(projectedDate, targetDate, commitDate) : '#bdbdbd' )
+}
+
+const date1 = new Date('10/15/2019')
+const date2 = new Date('11/1/2019')
+const date3 = new Date('1/30/2020')
+console.log('function color', projectedDateColor(date1, date2, date3))
+//console.log('date to commitment date', dateToCommitment)
+
+console.log(date1.getTime())
+
 
 function ProjectData({data}) {
-  // logic will go here
 
-  // Scale dimensions
-  const groups = [
-    {
-        id: data.num_project,
-        title: data.project,
-        stackItems: true,
-    }
-]
+  let groups = [];
+  for (let i = 0; i < data.length; i++) {
+    groups.push({
+      //id: `${i + 1}`,
+      id: i + 1, 
+      title: data[i].project,
+      stackItems: true
+    });
+  }
 
-const items = [
-    {
-        id: data.num_project,
-        group: data.num_project,
+  let items = [];
+  for (let i = 0; i < data.length; i++) {
+    items.push({   
+    
+      id: items.length,
+      group: i + 1,
+      style: {
+        background: 'red',
+        marginLeft: 100
+      },
+      start_time: new Date(data[i].target_date),
+      end_time: new Date(data[i].commit_date),
+      itemProps: {
         style: {
-            background: 'red',
-            marginLeft: 100
-          },
-        start_time: new Date(data.projected_date),
-        end_time: new Date(data.commit_date),
-        itemProps: {
-            style: {
-                background: 'blue',
-                borderColor: 'blue',
-                left: '50%',
-            }
+          background: '#bdbdbd',
+          borderColor: '#bdbdbd',
+          left: '50%',
         }
+      }
+    })
+    items.push({
+      id: items.length,
+      group: i + 1,
+      title: (
+        <div style={{
+          ...styles.customIconStyle, 
+          borderColor: projectedDateColor(new Date(data[i].projected_date), new Date(data[i].target_date), new Date(data[i].commit_date)), 
+          backgroundColor: isProjectComplete(data[i].complete, new Date(data[i].projected_date), new Date(data[i].target_date), new Date(data[i].commit_date))
+        }}/>
+      ),
+      start_time: new Date(data[i].projected_date),
+      end_time: new Date(data[i].projected_date),
+      itemProps: {
+      style: {
+              background: 'rgb(0,0,0,0)',
+              borderColor: 'rgb(0,0,0,0)',
+              width: 0
+              }
+          }
+    })
+  }
 
-    }
-]
+  http://localhost:3000/
+  console.log('data', data)
+  console.log('groups', groups)
+  console.log('items', items)
+  // let dataIndex = []
+  // // for (let i = 0; i <3; i++){
+  // for (let [key, value] of Object.entries(data)) {
+  //   console.log(`${key}: ${value}`);
+  //   //console.log(data.projected_date)
+  //   dataIndex.push(data.projected_date)
+  //   // console.log(dataIndex)
+  // }
+  // console.log(data)
+  //}.projected_date)
+  
+  // console.log(data.entries())
+ 
+  // Object.entries(data).forEach(entry => {
+  //   let key = entry[0];
+  //   let value = entry[1]
+  // })
+
+  
     return(
         <Timeline 
         groups={groups}
