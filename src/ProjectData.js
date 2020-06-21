@@ -1,13 +1,11 @@
 import React from 'react';
-import Timeline from 'react-calendar-timeline'
+import Timeline, { TimelineHeaders, DateHeader, SidebarHeader } from 'react-calendar-timeline'
   // make sure you include the timeline stylesheet or the timeline will not be styled
   import './Timeline.css'
   import moment from 'moment'
+//import TreeMenu from 'react-simple-tree-menu'
 
 
-
-// const progress = 'Complete'
-//const colorIcon = iconColors('Complete')
 
 // Constants for styles:
 const BORDER_WIDTH = '1px';
@@ -16,18 +14,6 @@ const ICON_WIDTH = 12;
 const ICON_HEIGHT = 12;
 const ICON_MARGIN_LEFT = -ICON_WIDTH/2;
 const ICON_MARGIN_TOP = 3;
-
-const iconColors = {
-   Complete: 'green',
-   OnTrack: 'yellow',
-   Late: 'red'
-}
-
-const iconBorders = {
-  Complete: 'green',
-  OnTrack: 'orange',
-  Late: 'crimson'
-}
 
 const styles = {
   iconStyle: {
@@ -42,7 +28,7 @@ const styles = {
     // backgroundColor: iconColors.Complete,
     backgroundColor: 'green',
     borderColor: 'white',
-    borderStyle: 'solid',
+    borderStyle: BORDER_STYLE,
     borderWidth: BORDER_WIDTH,
     transform: 'rotate(45deg)',
     height: ICON_HEIGHT,
@@ -56,10 +42,8 @@ const styles = {
   }
 }
 
-const today = Date.now()
+//const today = Date.now()
 const startOfMonth = moment().startOf('month')
-//const endOfMonth = moment().endOf('month')
-//const oneYearLater = Date.now()
 const oneYearLater = moment().endOf('month').add(1, 'years');     
 
 
@@ -75,28 +59,16 @@ function projectedDateColor(projectedDate, targetDate, commitDate) {
     return'yellow'
   }
   else if (dateToCommitment > 0.75) {
-    //const dateLength = commitDate.getTime() - targetDate.getTime()
     return 'green'
   }
   else {
     return "error"
   }
-  // console.log(dateToCommitment)
-  //let diamondColor = (projectedDate > targetDate ? 'green' : 'red')
-  //return diamondColor
 }
 
 function isProjectComplete(completeYorN, projectedDate, targetDate, commitDate) {
-  return (completeYorN == 'Y' ? projectedDateColor(projectedDate, targetDate, commitDate) : '#bdbdbd' )
+  return (completeYorN === 'Y' ? projectedDateColor(projectedDate, targetDate, commitDate) : '#bdbdbd' )
 }
-
-const date1 = new Date('10/15/2019')
-const date2 = new Date('11/1/2019')
-const date3 = new Date('1/30/2020')
-console.log('function color', projectedDateColor(date1, date2, date3))
-//console.log('date to commitment date', dateToCommitment)
-
-console.log(date1.getTime())
 
 
 function ProjectData({data}) {
@@ -153,40 +125,41 @@ function ProjectData({data}) {
     })
   }
 
-  http://localhost:3000/
+  
+  console.log('tree data', treeData)
   console.log('data', data)
   console.log('groups', groups)
   console.log('items', items)
-  // let dataIndex = []
-  // // for (let i = 0; i <3; i++){
-  // for (let [key, value] of Object.entries(data)) {
-  //   console.log(`${key}: ${value}`);
-  //   //console.log(data.projected_date)
-  //   dataIndex.push(data.projected_date)
-  //   // console.log(dataIndex)
-  // }
-  // console.log(data)
-  //}.projected_date)
-  
-  // console.log(data.entries())
- 
-  // Object.entries(data).forEach(entry => {
-  //   let key = entry[0];
-  //   let value = entry[1]
-  // })
 
   
     return(
         <Timeline 
         groups={groups}
         items={items}
-        defaultTimeStart={moment().add(-12, 'hour')}
-        defaultTimeEnd={moment().add(12, 'hour')}
         minZoom={1000 * 60 * 60 * 24 * 30 * 6}
-        maxZoom={86400000 * 365}
+        maxZoom={86400000 * 365* 3}
         defaultTimeStart={startOfMonth}
         defaultTimeEnd={oneYearLater}
+        
       >
+      
+        <TimelineHeaders>
+          <SidebarHeader>
+            {({ getRootProps }) => {
+              return <div {...getRootProps()}>Project 1</div>
+            }}
+          </SidebarHeader>
+          <DateHeader 
+            unit="primaryHeader">
+          </DateHeader>
+          <DateHeader
+          
+            unit="month"
+            labelFormat="MMM"
+          >
+          </DateHeader>
+
+        </TimelineHeaders>
          
       </Timeline>
     )

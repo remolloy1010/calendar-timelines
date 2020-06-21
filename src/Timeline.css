@@ -88,11 +88,13 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    border-bottom: 1px solid #bbb;
+    border-bottom: 1px solid #8266ce;
     cursor: pointer;
     font-size: 14px;
-    background-color: #f0f0f0;
-    border-left: 2px solid #bbb; }
+    color: #fff;
+    background-color:  #8266ce;
+    border-left: 1px solid #bbb; 
+  border-top: 1px solid #bbb; }
   
   .react-calendar-timeline .rct-dateHeader-primary {
     background-color: initial;
@@ -101,7 +103,7 @@
     color: #fff; }
   
   .react-calendar-timeline .rct-header-root {
-    background: #c52020;
+    background: #8266ce;
     border-bottom: 1px solid #bbb; }
   
   .react-calendar-timeline .rct-calendar-header {

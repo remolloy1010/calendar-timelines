@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
-import Timeline, { 
-  TimelineMarkers,
-  TodayMarker }
-  from 'react-calendar-timeline'
-// make sure you include the timeline stylesheet or the timeline will not be styled
-import './Timeline.css'
-import moment from 'moment'
-import DetailsIcon from '@material-ui/icons/Details';
-import DetailsTwoToneIcon from '@material-ui/icons/DetailsTwoTone';
-import { colors } from '@material-ui/core';
+// import Timeline, { 
+//   TimelineMarkers,
+//   TodayMarker }
+//   from 'react-calendar-timeline'
+// // make sure you include the timeline stylesheet or the timeline will not be styled
+// import './Timeline.css'
+// import moment from 'moment'
+// import DetailsIcon from '@material-ui/icons/Details';
+// import DetailsTwoToneIcon from '@material-ui/icons/DetailsTwoTone';
+// import { colors } from '@material-ui/core';
 import { DataImporter } from './DataImporter';
 import ProjectData from './ProjectData';
 
@@ -42,15 +42,15 @@ function getBrowserData() {
   return JSON.parse(dataString) // converts JSON string into an object
 }
 
-const today = Date.now()
-const date = '5/7/2020'
+// const today = Date.now()
+// const date = '5/7/2020'
 
 function App() {
 
   // return <div />
 
   const [data, setData] = useState(getBrowserData());
-  const handleForce = (data, fileInfo) => console.log(data, fileInfo);
+  // const handleForce = (data, fileInfo) => console.log(data, fileInfo);
   
   function handleDataUpload(data) {
     //we are updating the state to whatever the data is in local storage
