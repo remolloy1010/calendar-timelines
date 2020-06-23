@@ -12,10 +12,37 @@ import './App.css';
 // import { colors } from '@material-ui/core';
 import { DataImporter } from './DataImporter';
 import ProjectData from './ProjectData';
+import { Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
 
+const styles = {
+  titleBarStyle: {
+    //borderColor: 'green',
+    height: 30,
+    borderColor: 'crimson',
+    backgroundColor: 'green',
 
 
+  },
+  paddingStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 10
+  }
+}
+const useStyles = ({
+  headerStyle: {
+    background: 'linear-gradient(45deg, #194890 30%, #7986cb 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(0, 105, 135, .3)',
+    color: 'white',
+    height: 50,
+    padding: '0 30px',
+    fontWeight: 'bold'
+  },
+});
 
 
 // const markers = [
@@ -71,10 +98,17 @@ function App() {
 
   return (
     <div>
-    <DataImporter onDataUpload={handleDataUpload}/>
-    <button onClick={clearData}> Clear Data</button>
-    <ProjectData data={data}/>
-
+    
+    <div style={useStyles.headerStyle}>
+            <Typography variant="h4" align="center" >
+              Integrated Safety Project Timelines
+            </Typography>
+          </div>
+    <div style={styles.paddingStyle}>
+      <DataImporter onDataUpload={handleDataUpload}/>
+      <button onClick={clearData}> Clear Data</button></div> 
+      <ProjectData data={data}/>
+    
     {/* <ProjectData>
     </ProjectData> */}
 

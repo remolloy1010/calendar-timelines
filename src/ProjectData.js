@@ -4,6 +4,7 @@ import Timeline, { TimelineHeaders, DateHeader, SidebarHeader } from 'react-cale
   import './Timeline.css'
   import moment from 'moment'
 //import TreeMenu from 'react-simple-tree-menu'
+import {Typography} from '@material-ui/core'
 
 
 
@@ -23,6 +24,13 @@ const styles = {
     fill: 'green',
 
 
+  },
+  sidebarStyles: {
+    align: 'center',
+    backgroundColor: 'red'
+  },
+  titleStyle: {
+    marginLeft: 10
   },
   customIconStyle: {
     // backgroundColor: iconColors.Complete,
@@ -52,14 +60,14 @@ function projectedDateColor(projectedDate, targetDate, commitDate) {
   const totalDateLength = commitDate.getTime() - targetDate.getTime()
   const dateToCommitment = (projectedDate.getTime() - targetDate.getTime())/totalDateLength
   
-  if (dateToCommitment <= 0.25) {
-    return 'red'
+  if (dateToCommitment <= 0.50) {
+    return 'green'
   }
-  else if(dateToCommitment <= 0.75) {
+  else if(dateToCommitment <= 1.00) {
     return'yellow'
   }
-  else if (dateToCommitment > 0.75) {
-    return 'green'
+  else if (dateToCommitment > 1.00) {
+    return 'red'
   }
   else {
     return "error"
@@ -71,17 +79,33 @@ function isProjectComplete(completeYorN, projectedDate, targetDate, commitDate) 
 }
 
 
+
 function ProjectData({data}) {
 
   let groups = [];
   for (let i = 0; i < data.length; i++) {
+    
+    function Project_or_Milestone(project, milestone) {
+      if (milestone !== '') {
+        return milestone
+      }
+      else if (milestone === '') {
+        return project
+      }
+    }
+    
     groups.push({
       //id: `${i + 1}`,
       id: i + 1, 
-      title: data[i].project,
+      //title: Project_or_Milestone(data[i].project, data[i].milestone),
+      // style: {
+      //   marginLeft: '10px'
+      // },
+      title: data[i].project + ' (' + data[i].milestone + ')',
       stackItems: true
     });
   }
+  
 
   let items = [];
   for (let i = 0; i < data.length; i++) {
@@ -126,13 +150,15 @@ function ProjectData({data}) {
   }
 
   
-  console.log('tree data', treeData)
+  //console.log('tree data', treeData)
   console.log('data', data)
   console.log('groups', groups)
   console.log('items', items)
 
   
     return(
+      <>
+          
         <Timeline 
         groups={groups}
         items={items}
@@ -140,13 +166,16 @@ function ProjectData({data}) {
         maxZoom={86400000 * 365* 3}
         defaultTimeStart={startOfMonth}
         defaultTimeEnd={oneYearLater}
+        sidebarWidth={350}
+        rightSidebarWidth={350}
+        rightSidebarContent={<div>Above The Right</div>}
         
       >
       
         <TimelineHeaders>
-          <SidebarHeader>
+          <SidebarHeader >
             {({ getRootProps }) => {
-              return <div {...getRootProps()}>Project 1</div>
+              return <div {...getRootProps()}>HIIII</div>
             }}
           </SidebarHeader>
           <DateHeader 
@@ -162,6 +191,7 @@ function ProjectData({data}) {
         </TimelineHeaders>
          
       </Timeline>
+      </>
     )
 }
 

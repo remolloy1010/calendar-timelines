@@ -80,7 +80,7 @@
   .react-calendar-timeline .rct-cursor-line {
     position: absolute;
     width: 2px;
-    background: #2196f3;
+    background: #194890;
     z-index: 51; }
   
   .react-calendar-timeline .rct-dateHeader {
@@ -88,11 +88,11 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    border-bottom: 1px solid #8266ce;
+    border-bottom: 1px solid #194890;
     cursor: pointer;
     font-size: 14px;
     color: #fff;
-    background-color:  #8266ce;
+    background-color:  #194890;
     border-left: 1px solid #bbb; 
   border-top: 1px solid #bbb; }
   
@@ -103,7 +103,7 @@
     color: #fff; }
   
   .react-calendar-timeline .rct-header-root {
-    background: #8266ce;
+    background: #194890;
     border-bottom: 1px solid #bbb; }
   
   .react-calendar-timeline .rct-calendar-header {
