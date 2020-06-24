@@ -33,7 +33,7 @@ const styles = {
 }
 const useStyles = ({
   headerStyle: {
-    background: 'linear-gradient(45deg, #194890 30%, #7986cb 90%)',
+    background: 'linear-gradient(45deg, #1a237e 30%, #1e88e5 90%)',
     border: 0,
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(0, 105, 135, .3)',

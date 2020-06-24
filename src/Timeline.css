@@ -88,11 +88,11 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    border-bottom: 1px solid #194890;
+    border-bottom: 1px solid #1a237e;
     cursor: pointer;
     font-size: 14px;
     color: #fff;
-    background-color:  #194890;
+    background-color:  #1a237e;
     border-left: 1px solid #bbb; 
   border-top: 1px solid #bbb; }
   
@@ -103,11 +103,10 @@
     color: #fff; }
   
   .react-calendar-timeline .rct-header-root {
-    background: #194890;
+    background: #1a237e;
     border-bottom: 1px solid #bbb;
     margin-top: 20px }
   
   .react-calendar-timeline .rct-calendar-header {
-    border: 1px solid #bbb;
-    }
+    border: 1px solid #bbb; }
   

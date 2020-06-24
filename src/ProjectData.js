@@ -1,5 +1,5 @@
 import React from 'react';
-import Timeline, { TimelineHeaders, DateHeader, SidebarHeader } from 'react-calendar-timeline'
+import Timeline, { TimelineHeaders, DateHeader, SidebarHeader, TodayMarker } from 'react-calendar-timeline'
   // make sure you include the timeline stylesheet or the timeline will not be styled
   import './Timeline.css'
   import moment from 'moment'
@@ -33,13 +33,17 @@ const styles = {
     height: 30,
     borderColor: 'crimson',
     fill: 'green',
-
-
+  },
+  todayMarkerStyle: {
+    backgroundColor: 'red',
+    borderColor: 'red',
+    borderWidth: 5,
+    borderStyle: 'solid'
   },
   rightSidebarStyles: {
     align: 'center',
     //backgroundColor: 'red',
-    marginLeft: 160,
+    marginLeft: 240,
     color: 'white',
     //width: 350,
     marginTop: 20
@@ -71,7 +75,7 @@ const styles = {
   }
 }
 
-//const today = Date.now()
+const today = Date.now()
 const startOfMonth = moment().startOf('month')
 const oneYearLater = moment().endOf('month').add(1, 'years');     
 
@@ -177,6 +181,8 @@ function ProjectData({data}) {
   console.log('groups', groups)
   console.log('items', items)
 
+  const today = Date.now()
+  //date={today}
   
     return(
       <>
@@ -189,10 +195,19 @@ function ProjectData({data}) {
         defaultTimeStart={startOfMonth}
         defaultTimeEnd={oneYearLater}
         sidebarWidth={350}
-        rightSidebarWidth={400}
+        rightSidebarWidth={525}
         rightSidebarContent={<div>HIIIII</div>}
        
       >
+        <TodayMarker interval={2000} />
+        <TodayMarker date={today}>
+          {({ styles}) =>
+            // date is value of current date. Use this to render special styles for the marker
+            // or any other custom logic based on date:
+            // e.g. styles = {...styles, backgroundColor: isDateInAfternoon(date) ? 'red' : 'limegreen'}
+            <div style={styles.todayMarkerStyle} />
+          }
+        </TodayMarker>
       
         <TimelineHeaders>
           {/* <SidebarHeader>
