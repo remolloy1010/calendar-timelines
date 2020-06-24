@@ -104,8 +104,10 @@
   
   .react-calendar-timeline .rct-header-root {
     background: #194890;
-    border-bottom: 1px solid #bbb; }
+    border-bottom: 1px solid #bbb;
+    margin-top: 20px }
   
   .react-calendar-timeline .rct-calendar-header {
-    border: 1px solid #bbb; }
+    border: 1px solid #bbb;
+    }
   

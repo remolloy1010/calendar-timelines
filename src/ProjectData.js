@@ -4,7 +4,7 @@ import Timeline, { TimelineHeaders, DateHeader, SidebarHeader } from 'react-cale
   import './Timeline.css'
   import moment from 'moment'
 //import TreeMenu from 'react-simple-tree-menu'
-import {Typography} from '@material-ui/core'
+import {Typography, createMuiTheme} from '@material-ui/core'
 
 
 
@@ -16,6 +16,17 @@ const ICON_HEIGHT = 12;
 const ICON_MARGIN_LEFT = -ICON_WIDTH/2;
 const ICON_MARGIN_TOP = 3;
 
+const theme = createMuiTheme({
+  overrides: {
+    MuiTypography: {
+      text: {
+        color: 'white',
+        marginTop: 20
+      }
+    }
+  }
+})
+
 const styles = {
   iconStyle: {
     //borderColor: 'green',
@@ -25,9 +36,19 @@ const styles = {
 
 
   },
-  sidebarStyles: {
+  rightSidebarStyles: {
     align: 'center',
-    backgroundColor: 'red'
+    //backgroundColor: 'red',
+    marginLeft: 160,
+    color: 'white',
+    //width: 350,
+    marginTop: 20
+  },
+  leftSidebarStyles: {
+    align: 'center',
+    marginTop: 20,
+    color: 'white',
+    width: 350
   },
   titleStyle: {
     marginLeft: 10
@@ -102,7 +123,8 @@ function ProjectData({data}) {
       //   marginLeft: '10px'
       // },
       title: data[i].project + ' (' + data[i].milestone + ')',
-      stackItems: true
+      stackItems: true,
+      rightTitle: data[i].comments
     });
   }
   
@@ -167,17 +189,51 @@ function ProjectData({data}) {
         defaultTimeStart={startOfMonth}
         defaultTimeEnd={oneYearLater}
         sidebarWidth={350}
-        rightSidebarWidth={350}
-        rightSidebarContent={<div>Above The Right</div>}
-        
+        rightSidebarWidth={400}
+        rightSidebarContent={<div>HIIIII</div>}
+       
       >
       
         <TimelineHeaders>
-          <SidebarHeader >
+          {/* <SidebarHeader>
             {({ getRootProps }) => {
-              return <div {...getRootProps()}>HIIII</div>
+              return <div style={styles.sidebarStyles} {...getRootProps()}>
+                <Typography variant="subtitle2" align="left" >
+                  Projects
+                </Typography>
+                <Typography variant="subtitle2" align="right" colorTextPrimary='white'>
+                  Milestones
+                </Typography>
+              </div>
+            }}
+          </SidebarHeader> */}
+          <SidebarHeader>
+            {({ getRootProps }) => {
+              return <div style={styles.leftSidebarStyles}>
+                <Typography variant="subtitle1" align="center" >
+                  Projects ---- Milestones ---- Revenue
+                </Typography></div>
+                
             }}
           </SidebarHeader>
+          
+          {/* <SidebarHeader variant="right" headerData={{someData: 'extra'}}>
+            {({ getRootProps, data }) => {
+              return <div style={styles.rightSidebarStyles}>
+                <Typography variant="subtitle1" align="center" >
+                  Comments {data.someData}
+                </Typography></div>
+            }}
+          </SidebarHeader> */}
+          <SidebarHeader variant="right" >
+            {({ getRootProps, data }) => {
+              return <div style={styles.rightSidebarStyles}>
+                <Typography variant="subtitle1" align="center" >
+                  Comments
+                </Typography></div>
+            }}
+          </SidebarHeader>
+
           <DateHeader 
             unit="primaryHeader">
           </DateHeader>
