@@ -13,7 +13,9 @@ import './App.css';
 import { DataImporter } from './DataImporter';
 import ProjectData from './ProjectData';
 import { Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
+import DataTable from './DataTable'
+import SummaryTable from './SummaryTable'
 
 
 const styles = {
@@ -108,7 +110,12 @@ function App() {
       <DataImporter onDataUpload={handleDataUpload}/>
       <button onClick={clearData}> Clear Data</button></div> 
       <ProjectData data={data}/>
-    
+      <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
+        <DataTable data={data}></DataTable>
+      </div>
+      <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
+        <SummaryTable data={data}></SummaryTable>
+      </div>
     {/* <ProjectData>
     </ProjectData> */}
 
