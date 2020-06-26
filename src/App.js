@@ -102,8 +102,8 @@ function App() {
     <div>
     
     <div style={useStyles.headerStyle}>
-            <Typography variant="h4" align="center" >
-              Integrated Safety Project Timelines
+            <Typography variant="h4" align="center" data={data} >
+              {data[0].timelines_title} Project Timelines
             </Typography>
           </div>
     <div style={styles.paddingStyle}>

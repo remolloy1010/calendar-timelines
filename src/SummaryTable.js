@@ -49,51 +49,70 @@ const useStyles = makeStyles({
 
 export default function SummaryTable({data}) {
   const classes = useStyles();
+  const timelinesTitle = data[0].timelines_title;
 
+  //FUNCTION TO FIND SLIP RATE
   function slipRate(commitDate, projectedDate) {
     const slipRateDays = commitDate.getTime() - projectedDate.getTime()
-    return slipRateDays/1000/60/60/24
+    return Math.round(slipRateDays/1000/60/60/24)
     }
-//   function avgSlipRate(commitDate, projectedDate) {
-//     const avgSlipRateConst = slipRate(commitDate, projectedDate))
-//     return avgSlipRateConst
-//     }
-//   function avgSuccessRate(commitDate, projectedDate) {
-//     const slipRateDays = commitDate.getTime() - projectedDate.getTime()
-//     return slipRateDays/1000/60/60/24
-//     }
-    //console.log("commit date", data[1].commit_date)
-    //console.log("Slip Rate: ", slipRate(new Date(data[1].commit_date), new Date(data[1].projected_date)))
+
+    //CREATE SLIP RATE ARRAY
+    let slipRateArray = [];
+    for (let i = 0; i < data.length; i++) {
+        slipRateArray.push(slipRate(new Date(data[i].commit_date), new Date(data[i].projected_date)))
+    }
+    console.log("Slip Rate Array: ", slipRateArray)
+
+    //CREATE REVENUE IMPACT ARRAY
+    let revenueArray = [];
+    for (let i = 0; i < data.length; i++) {
+        revenueArray.push(data[i].revenue)
+    }
+    console.log("Revenue Array: ", revenueArray)
+
+    // //FUNCTION TO CREATE DATA ARRAY
+    // function createArrayFromData(data, rateFunction) {
+    //   let dataArray = [];
+    //   for (let i=0; i < data.length; i++){
+    //     dataArray.push(rateFunction)
+    //   }
+    //   console.log("Function Array: ", dataArray)
+    //   return dataArray
+    // }
+
+    // console.log('function results', createArrayFromData(data, slipRate(new Date(data.commit_date), new Date(data.projected_date))))
+
+    //FUNCTION TO GET AVERAGE OF ARRAY
+    function getAverage(arrayToAverage) {
+      let total = 0;
+      for(let i = 0; i < arrayToAverage.length; i++) {
+        total += arrayToAverage[i];
+      }
+        return Math.round(total/arrayToAverage.length)
+    }
+  
+    //const slipRateArray = [13, 15, 60, -33, 24]
+    //const revenueAverage = [1000, 1200, 116, 990, 543]
 
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Priority</StyledTableCell>
-            <StyledTableCell>Project</StyledTableCell>
-            <StyledTableCell align="left">Milestone</StyledTableCell>
-            <StyledTableCell align="center">Revenue Impact</StyledTableCell>
-            <StyledTableCell align="center">Target Date</StyledTableCell>
-            <StyledTableCell align="center">Commit Date</StyledTableCell>
-            <StyledTableCell align="center">Slip Rate (days)</StyledTableCell>
+            <StyledTableCell>Title</StyledTableCell>
+            <StyledTableCell align="center">Average Slip Rate</StyledTableCell>
+            <StyledTableCell align="center">Total Success Rate</StyledTableCell>
+            <StyledTableCell align="center">Average Revenue Impact</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((data) => (
-            <StyledTableRow key={data.priority}>
-              <StyledTableCell component="th" scope="row">
-                {data.priority}
-              </StyledTableCell>
-              <StyledTableCell align="left">{data.project}</StyledTableCell>
-              <StyledTableCell align="left">{data.milestone}</StyledTableCell>
-              <StyledTableCell align="center">{data.revenue}</StyledTableCell>
-              <StyledTableCell align="center">{data.target_date}</StyledTableCell>
-              <StyledTableCell align="center">{data.commit_date}</StyledTableCell>
-              <StyledTableCell align="center">{Math.round(slipRate(new Date(data.commit_date), new Date(data.projected_date)))}</StyledTableCell>
-
-            </StyledTableRow>
-          ))}
+          <TableRow>
+              <StyledTableCell>{timelinesTitle}</StyledTableCell>
+              <StyledTableCell align="center">{getAverage(slipRateArray)}</StyledTableCell>
+              <StyledTableCell align="center">{'98%'}</StyledTableCell>
+              <StyledTableCell align="center">{'$' + getAverage(revenueArray)}</StyledTableCell>
+            </TableRow>    
         </TableBody>
       </Table>
     </TableContainer>

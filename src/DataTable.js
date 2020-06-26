@@ -46,13 +46,14 @@ const useStyles = makeStyles({
     minWidth: 500,
   },
 });
-function slipRate(commitDate, projectedDate) {
-    const slipRateDays = commitDate.getTime() - projectedDate.getTime()
-    return slipRateDays/1000/60/60/24
-    }
+
 export default function DataTable({data}) {
   const classes = useStyles();
-
+  
+  function slipRate(commitDate, projectedDate) {
+    const slipRateDays = commitDate.getTime() - projectedDate.getTime()
+    return Math.round(slipRateDays/1000/60/60/24)
+    }
   
     //console.log("commit date", data[1].commit_date)
     //console.log("Slip Rate: ", slipRate(new Date(data[1].commit_date), new Date(data[1].projected_date)))
@@ -68,6 +69,7 @@ export default function DataTable({data}) {
             <StyledTableCell align="center">Revenue Impact</StyledTableCell>
             <StyledTableCell align="center">Target Date</StyledTableCell>
             <StyledTableCell align="center">Commit Date</StyledTableCell>
+            <StyledTableCell align="center">Projected Date</StyledTableCell>
             <StyledTableCell align="center">Slip Rate (days)</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -82,7 +84,8 @@ export default function DataTable({data}) {
               <StyledTableCell align="center">{data.revenue}</StyledTableCell>
               <StyledTableCell align="center">{data.target_date}</StyledTableCell>
               <StyledTableCell align="center">{data.commit_date}</StyledTableCell>
-              <StyledTableCell align="center">{Math.round(slipRate(new Date(data.commit_date), new Date(data.projected_date)))}</StyledTableCell>
+              <StyledTableCell align="center">{data.projected_date}</StyledTableCell>
+              <StyledTableCell align="center">{slipRate(new Date(data.commit_date), new Date(data.projected_date))}</StyledTableCell>
 
             </StyledTableRow>
           ))}
