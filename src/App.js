@@ -16,6 +16,7 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import DataTable from './DataTable'
 import SummaryTable from './SummaryTable'
+import CollapsibleTable from './CondensedSummaryTable';
 
 
 const styles = {
@@ -115,6 +116,9 @@ function App() {
       </div>
       <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
         <SummaryTable data={data}></SummaryTable>
+      </div>
+      <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
+        <CollapsibleTable data={data}></CollapsibleTable>
       </div>
     {/* <ProjectData>
     </ProjectData> */}

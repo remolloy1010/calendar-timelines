@@ -8,6 +8,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DataImporter from './DataImporter'
+import { ExpansionPanel } from '@material-ui/core';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {Typography} from '@material-ui/core'
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -26,6 +32,15 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
+
+const styles = {
+  summaryHeader: {
+    //borderColor: 'green',
+    height: 30,
+    backgroundColor: 'crimson',
+    fill: 'green',
+  }
+}
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -59,7 +74,14 @@ export default function DataTable({data}) {
     //console.log("Slip Rate: ", slipRate(new Date(data[1].commit_date), new Date(data[1].projected_date)))
 
   return (
-    <TableContainer component={Paper}>
+    <>
+    <ExpansionPanel>
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography className={classes.heading} style={styles.summaryHeader}>Summary Table</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <Typography>
+        <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -81,7 +103,7 @@ export default function DataTable({data}) {
               </StyledTableCell>
               <StyledTableCell align="left">{data.project}</StyledTableCell>
               <StyledTableCell align="left">{data.milestone}</StyledTableCell>
-              <StyledTableCell align="center">{data.revenue}</StyledTableCell>
+              <StyledTableCell align="center">${data.revenue}</StyledTableCell>
               <StyledTableCell align="center">{data.target_date}</StyledTableCell>
               <StyledTableCell align="center">{data.commit_date}</StyledTableCell>
               <StyledTableCell align="center">{data.projected_date}</StyledTableCell>
@@ -92,5 +114,11 @@ export default function DataTable({data}) {
         </TableBody>
       </Table>
     </TableContainer>
+        </Typography>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+    
+    
+    </>
   );
 }

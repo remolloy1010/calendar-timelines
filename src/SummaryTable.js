@@ -101,7 +101,8 @@ export default function SummaryTable({data}) {
         <TableHead>
           <TableRow>
             <StyledTableCell>Title</StyledTableCell>
-            <StyledTableCell align="center">Average Slip Rate</StyledTableCell>
+            <StyledTableCell align="center">Total # of Projects</StyledTableCell>
+            <StyledTableCell align="center">Average Slip Rate (days)</StyledTableCell>
             <StyledTableCell align="center">Total Success Rate</StyledTableCell>
             <StyledTableCell align="center">Average Revenue Impact</StyledTableCell>
           </TableRow>
@@ -109,6 +110,7 @@ export default function SummaryTable({data}) {
         <TableBody>
           <TableRow>
               <StyledTableCell>{timelinesTitle}</StyledTableCell>
+              <StyledTableCell align='center'>{data.length}</StyledTableCell>
               <StyledTableCell align="center">{getAverage(slipRateArray)}</StyledTableCell>
               <StyledTableCell align="center">{'98%'}</StyledTableCell>
               <StyledTableCell align="center">{'$' + getAverage(revenueArray)}</StyledTableCell>

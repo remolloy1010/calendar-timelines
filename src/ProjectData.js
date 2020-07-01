@@ -36,9 +36,7 @@ const styles = {
   },
   todayMarkerStyle: {
     backgroundColor: 'red',
-    borderColor: 'red',
-    borderWidth: 5,
-    borderStyle: 'solid'
+    width: 3
   },
   rightSidebarStyles: {
     align: 'center',
@@ -201,11 +199,11 @@ function ProjectData({data}) {
       >
         <TodayMarker interval={2000} />
         <TodayMarker date={today}>
-          {({ styles}) =>
+          {({ styles: localStyles }) =>
             // date is value of current date. Use this to render special styles for the marker
             // or any other custom logic based on date:
             // e.g. styles = {...styles, backgroundColor: isDateInAfternoon(date) ? 'red' : 'limegreen'}
-            <div style={styles.todayMarkerStyle} />
+            <div style={{...localStyles, ...styles.todayMarkerStyle}} />
           }
         </TodayMarker>
       
