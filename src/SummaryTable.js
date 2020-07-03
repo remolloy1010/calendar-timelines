@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 
 export default function SummaryTable({data}) {
   const classes = useStyles();
-  const timelinesTitle = data[0].timelines_title;
+  //const timelinesTitle = data[0].timelines_title;
 
   //FUNCTION TO FIND SLIP RATE
   function slipRate(commitDate, projectedDate) {
@@ -109,7 +109,7 @@ export default function SummaryTable({data}) {
         </TableHead>
         <TableBody>
           <TableRow>
-              <StyledTableCell>{timelinesTitle}</StyledTableCell>
+              <StyledTableCell>Timelines Title</StyledTableCell>
               <StyledTableCell align='center'>{data.length}</StyledTableCell>
               <StyledTableCell align="center">{getAverage(slipRateArray)}</StyledTableCell>
               <StyledTableCell align="center">{'98%'}</StyledTableCell>
@@ -120,3 +120,4 @@ export default function SummaryTable({data}) {
     </TableContainer>
   );
 }
+// {timelinesTitle}

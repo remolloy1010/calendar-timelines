@@ -104,7 +104,7 @@ function App() {
     
     <div style={useStyles.headerStyle}>
             <Typography variant="h4" align="center" data={data} >
-              {data[0].timelines_title} Project Timelines
+               Project Timelines
             </Typography>
           </div>
     <div style={styles.paddingStyle}>

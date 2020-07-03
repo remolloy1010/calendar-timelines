@@ -22,13 +22,13 @@ const StyledTableCell = withStyles((theme) => ({
   },
   body: {
     fontSize: 14,
-  },
+  }
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: theme.palette.action.hover
     },
   },
 }))(TableRow);
@@ -39,27 +39,37 @@ const styles = {
     height: 30,
     backgroundColor: 'crimson',
     fill: 'green',
-  }
+  },
+  root: {
+    backgroundColor: 'green'
+    
+  },
+  
 }
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 const useStyles = makeStyles({
   table: {
     minWidth: 500,
+    // marginTop: 20,
+    // marginBottom: 20,
+    // marginLeft: 20,
+    // marginRight: 20
   },
+  root: {
+    backgroundColor: '#1a237e',
+    color: 'white',
+  },
+  detailsRoot: {
+    backgroundColor: 'white',
+    paddingTop: 20,
+    paddingLeft: 100,
+    paddingRight: 100,
+    paddingBottom: 20
+  }, 
+  button: {
+    color: 'white'
+  }
 });
 
 export default function DataTable({data}) {
@@ -75,11 +85,11 @@ export default function DataTable({data}) {
 
   return (
     <>
-    <ExpansionPanel>
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography className={classes.heading} style={styles.summaryHeader}>Summary Table</Typography>
+    <ExpansionPanel classes={{ root: classes.root }} >
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon classes={{ root: classes.button}}/>}>
+        <Typography className={classes.heading, classes.root} >Summary Table</Typography>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      <ExpansionPanelDetails classes = {{ root: classes.detailsRoot}}>
         <Typography>
         <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
