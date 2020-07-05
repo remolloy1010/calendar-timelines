@@ -118,9 +118,9 @@ function App() {
       <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
         <SummaryTable data={data}></SummaryTable>
       </div>
-      <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
+      {/* <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
         <CollapsibleTable data={data}></CollapsibleTable>
-      </div>
+      </div> */}
       <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
         <GroupedData data={data}></GroupedData>
       </div>

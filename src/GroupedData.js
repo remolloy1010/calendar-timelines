@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import Row from './CondensedSummaryTable'
+import CollapsibleTable from './CondensedSummaryTable'
+
 
 export default function GroupedData({data}) {
     console.log("data:", data)
@@ -31,32 +32,48 @@ export default function GroupedData({data}) {
         });
   
       }
-    function groupedDataArray(groupedData) {
-        return Object.keys(groupedData).map(key => {
-          let groupedDataArray = [];
-          groupedData[key].forEach(eachInstance => {
-              groupedDataArray = groupedDataArray + eachInstance.revenue 
-          });
+    // function groupedDataArray(groupedData) {
+    //     return Object.keys(groupedData).map(key => {
+    //       let groupedDataArray = [];
+    //       groupedData[key].forEach(eachInstance => {
+    //           groupedDataArray = groupedDataArray + eachInstance.revenue 
+    //       });
           
-          return groupedDataArray
-        });
+    //       return groupedDataArray
+    //     });
   
-      }
+    //   }
     
+
+    function priorityPerProject(groupedData) {
+    return Object.keys(groupedData).map(key => {
+        let priorityArray = [];
+        groupedData[key].forEach(eachInstance => {
+            priorityArray = eachInstance.priority 
+        });
+        
+        return priorityArray
+    });
+
+    }
+
     const projectNames = Object.keys(groupedData)
+    //const priority = Object.keys(groupedData.priority)
     const titleOfGroupedDataMap = ['project_names', 'total_revenue', 'num_of_milestones']
     console.log('Title of Mapped Data', titleOfGroupedDataMap)
     console.log('Project Names:', projectNames) 
     console.log('Total Revenue per Project Array:', totalRevenueImpactperProject(groupedData))
     console.log('Number of Milestones per Project:', numOfMilestonesPerProject(groupedData))
-
+    console.log('Priority Array:', priorityPerProject(groupedData))
+    
     let projectSummary = [];
     for (let i = 0; i < projectNames.length; i++) {
        
     projectSummary.push({
       project_name: projectNames[i], 
       num_of_milestones: numOfMilestonesPerProject(groupedData)[i],
-      total_revenue: totalRevenueImpactperProject(groupedData)[i]
+      total_revenue: totalRevenueImpactperProject(groupedData)[i],
+      priority: priorityPerProject(groupedData)[i]
     });
   }
   console.log("Project Summary: ", projectSummary)
@@ -68,9 +85,9 @@ export default function GroupedData({data}) {
     //     return Math.round(total/arrayToAverage.length)
     // }
     // console.log('groupedDataArray:',groupedDataArray(groupedData))
-    
+    // export default function GroupedData({projectSummary}) {
     return (
     //   <Row groupedData={groupedData} />
-      <div> Hi {totalRevenueImpactperProject(groupedData)} </div>
+      <CollapsibleTable projectSummary={projectSummary}> </CollapsibleTable>
     );
   }

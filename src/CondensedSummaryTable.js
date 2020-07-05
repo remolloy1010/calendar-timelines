@@ -82,7 +82,7 @@ function createData(name, calories, fat, carbs, protein, price) {
   };
 }
 
-function Row({ data, groupedData_projects }) {
+function Row({ rowData }) {
     //const {data} = data;
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
@@ -109,11 +109,12 @@ function Row({ data, groupedData_projects }) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" align="center">
-          {groupedData_projects}
+          {rowData.priority}
         </TableCell>
-        <TableCell align="center">{groupedData_projects}</TableCell>
-        {/* <TableCell align="center">${data.revenue}</TableCell>
-        <TableCell align="center">{data.target_date}</TableCell>
+        <TableCell align="center">{rowData.project_name}</TableCell>
+        <TableCell align="center">{rowData.num_of_milestones}</TableCell>
+        <TableCell align="center">${rowData.total_revenue}</TableCell>
+        {/* <TableCell align="center">{data.target_date}</TableCell>
         <TableCell align="center">{data.commit_date}</TableCell>
         <TableCell align="center">{data.projected_date}</TableCell>
         <TableCell align="center">{slipRate(new Date(data.commit_date), new Date(data.projected_date))}</TableCell> */}
@@ -186,53 +187,54 @@ const rows = [
 
 
 
-export default function CollapsibleTable({data}) {
-    console.log("data:", data)
-    //Group Data based on Project Name
+export default function CollapsibleTable({projectSummary}) {
+    console.log('project summary:', projectSummary)
+    // console.log("data:", data)
+    // //Group Data based on Project Name
     
-    var groupedData = _.groupBy(data,'project');
-    console.log('grouped data:', groupedData)
+    // var groupedData = _.groupBy(data,'project');
+    // console.log('grouped data:', groupedData)
 
-    function totalRevenueImpactperProject(groupedData) {
-      return Object.keys(groupedData).map(key => {
-        let total = 0;
-        groupedData[key].forEach(eachInstance => {
-            total = total + eachInstance.revenue 
-        });
+    // function totalRevenueImpactperProject(groupedData) {
+    //   return Object.keys(groupedData).map(key => {
+    //     let total = 0;
+    //     groupedData[key].forEach(eachInstance => {
+    //         total = total + eachInstance.revenue 
+    //     });
         
-        return total
-      });
+    //     return total
+    //   });
 
-    }
-    function numOfMilestonesPerProject(groupedData) {
-        return Object.keys(groupedData).map(key => {
-          let total = 0;
-          groupedData[key].forEach(eachInstance => {
-              total = total + 1 
-          });
+    // }
+    // function numOfMilestonesPerProject(groupedData) {
+    //     return Object.keys(groupedData).map(key => {
+    //       let total = 0;
+    //       groupedData[key].forEach(eachInstance => {
+    //           total = total + 1 
+    //       });
           
-          return total
-        });
+    //       return total
+    //     });
   
-      }
-    function groupedDataArray(groupedData) {
-        return Object.keys(groupedData).map(key => {
-          let groupedDataArray = [];
-          groupedData[key].forEach(eachInstance => {
-              groupedDataArray = groupedDataArray + eachInstance.revenue 
-          });
+    //   }
+    // function groupedDataArray(groupedData) {
+    //     return Object.keys(groupedData).map(key => {
+    //       let groupedDataArray = [];
+    //       groupedData[key].forEach(eachInstance => {
+    //           groupedDataArray = groupedDataArray + eachInstance.revenue 
+    //       });
           
-          return groupedDataArray
-        });
+    //       return groupedDataArray
+    //     });
   
-      }
+    //   }
 
-      const groupedData_projects = Object.keys(groupedData)
+    //   const groupedData_projects = Object.keys(groupedData)
        
-    console.log('Total Revenue per Project Array:', totalRevenueImpactperProject(groupedData))
-    console.log('Number of Milestones per Project:', numOfMilestonesPerProject(groupedData))
-    console.log('groupedDataArray:',groupedDataArray(groupedData))
-    console.log('object keys:', groupedData_projects)
+    // console.log('Total Revenue per Project Array:', totalRevenueImpactperProject(groupedData))
+    // console.log('Number of Milestones per Project:', numOfMilestonesPerProject(groupedData))
+    // console.log('groupedDataArray:',groupedDataArray(groupedData))
+    // console.log('object keys:', groupedData_projects)
     return (
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -241,19 +243,29 @@ export default function CollapsibleTable({data}) {
              <StyledTableCell></StyledTableCell>
              <StyledTableCell align="center">Priority</StyledTableCell>
              <StyledTableCell align="center">Project</StyledTableCell>
+             <StyledTableCell align="center"># of Milestones</StyledTableCell>
              <StyledTableCell align="center">Total Revenue Impact</StyledTableCell>
-             <StyledTableCell align="center">Target Date</StyledTableCell>
+             {/* <StyledTableCell align="center">Target Date</StyledTableCell>
              <StyledTableCell align="center">Commit Date</StyledTableCell>
              <StyledTableCell align="center">Projected Date</StyledTableCell>
-             <StyledTableCell align="center">Slip Rate (days)</StyledTableCell>
+             <StyledTableCell align="center">Slip Rate (days)</StyledTableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {groupedData_projects.map((groupedData_projects) => (
-              <Row key={groupedData_projects} groupedData_projects={groupedData_projects} />
+            {projectSummary && projectSummary.map((element) => (
+              <Row key={element.priority} rowData={element} />
             ))}
-            
           </TableBody>
+
+        {/* projectSummary = [{..},{..},...]
+        where projectSummary is an array
+        {..} are objects or elements within an array
+        and each object has properties such as "title", etc. */}
+          {/* {data.map((data) => (
+            <StyledTableRow key={data.priority}>
+              <StyledTableCell component="th" scope="row">
+                {data.priority}
+              </StyledTableCell> */}
         </Table>
       </TableContainer>
     );
