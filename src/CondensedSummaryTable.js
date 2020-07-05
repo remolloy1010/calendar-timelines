@@ -15,6 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import _ from 'lodash';
+import GroupedData from './GroupedData'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -81,11 +82,10 @@ function createData(name, calories, fat, carbs, protein, price) {
   };
 }
 
-function Row({ row, data }) {
+function Row({ data, groupedData_projects }) {
     //const {data} = data;
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
-    console.log("data from collapsible", data)
 
     function slipRate(commitDate, projectedDate) {
         const slipRateDays = commitDate.getTime() - projectedDate.getTime()
@@ -108,15 +108,15 @@ function Row({ row, data }) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {data.priority}
+        <TableCell component="th" scope="row" align="center">
+          {groupedData_projects}
         </TableCell>
-        <TableCell align="right">{data.project}</TableCell>
-        <TableCell align="right">${data.revenue}</TableCell>
-        <TableCell align="right">{data.target_date}</TableCell>
-        <TableCell align="right">{data.commit_date}</TableCell>
-        <TableCell align="right">{data.projected_date}</TableCell>
-        <TableCell align="right">{slipRate(new Date(data.commit_date), new Date(data.projected_date))}</TableCell>
+        <TableCell align="center">{groupedData_projects}</TableCell>
+        {/* <TableCell align="center">${data.revenue}</TableCell>
+        <TableCell align="center">{data.target_date}</TableCell>
+        <TableCell align="center">{data.commit_date}</TableCell>
+        <TableCell align="center">{data.projected_date}</TableCell>
+        <TableCell align="center">{slipRate(new Date(data.commit_date), new Date(data.projected_date))}</TableCell> */}
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -187,14 +187,60 @@ const rows = [
 
 
 export default function CollapsibleTable({data}) {
+    console.log("data:", data)
+    //Group Data based on Project Name
+    
+    var groupedData = _.groupBy(data,'project');
+    console.log('grouped data:', groupedData)
+
+    function totalRevenueImpactperProject(groupedData) {
+      return Object.keys(groupedData).map(key => {
+        let total = 0;
+        groupedData[key].forEach(eachInstance => {
+            total = total + eachInstance.revenue 
+        });
+        
+        return total
+      });
+
+    }
+    function numOfMilestonesPerProject(groupedData) {
+        return Object.keys(groupedData).map(key => {
+          let total = 0;
+          groupedData[key].forEach(eachInstance => {
+              total = total + 1 
+          });
+          
+          return total
+        });
+  
+      }
+    function groupedDataArray(groupedData) {
+        return Object.keys(groupedData).map(key => {
+          let groupedDataArray = [];
+          groupedData[key].forEach(eachInstance => {
+              groupedDataArray = groupedDataArray + eachInstance.revenue 
+          });
+          
+          return groupedDataArray
+        });
+  
+      }
+
+      const groupedData_projects = Object.keys(groupedData)
+       
+    console.log('Total Revenue per Project Array:', totalRevenueImpactperProject(groupedData))
+    console.log('Number of Milestones per Project:', numOfMilestonesPerProject(groupedData))
+    console.log('groupedDataArray:',groupedDataArray(groupedData))
+    console.log('object keys:', groupedData_projects)
     return (
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
              <StyledTableCell></StyledTableCell>
-             <StyledTableCell>Priority</StyledTableCell>
-             <StyledTableCell>Project</StyledTableCell>
+             <StyledTableCell align="center">Priority</StyledTableCell>
+             <StyledTableCell align="center">Project</StyledTableCell>
              <StyledTableCell align="center">Total Revenue Impact</StyledTableCell>
              <StyledTableCell align="center">Target Date</StyledTableCell>
              <StyledTableCell align="center">Commit Date</StyledTableCell>
@@ -203,9 +249,10 @@ export default function CollapsibleTable({data}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((data) => (
-              <Row key={data.project} data={data} />
+            {groupedData_projects.map((groupedData_projects) => (
+              <Row key={groupedData_projects} groupedData_projects={groupedData_projects} />
             ))}
+            
           </TableBody>
         </Table>
       </TableContainer>
