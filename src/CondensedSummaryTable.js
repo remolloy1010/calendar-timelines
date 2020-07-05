@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -14,6 +14,25 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import _ from 'lodash';
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: '#1a237e',
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    }
+  }))(TableCell);
+  
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover
+      },
+    },
+  }))(TableRow);
 
 const useRowStyles = makeStyles({
   root: {
@@ -22,6 +41,30 @@ const useRowStyles = makeStyles({
     },
   },
 });
+
+const useStyles = makeStyles({
+    table: {
+      minWidth: 500,
+      // marginTop: 20,
+      // marginBottom: 20,
+      // marginLeft: 20,
+      // marginRight: 20
+    },
+    root: {
+      backgroundColor: '#1a237e',
+      color: 'white',
+    },
+    detailsRoot: {
+      backgroundColor: 'white',
+      paddingTop: 20,
+      paddingLeft: 100,
+      paddingRight: 100,
+      paddingBottom: 20
+    }, 
+    button: {
+      color: 'white'
+    }
+  });
 
 function createData(name, calories, fat, carbs, protein, price) {
   return {
@@ -38,11 +81,25 @@ function createData(name, calories, fat, carbs, protein, price) {
   };
 }
 
-function Row(props) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
-  const classes = useRowStyles();
+function Row({ row, data }) {
+    //const {data} = data;
+    const [open, setOpen] = React.useState(false);
+    const classes = useRowStyles();
+    console.log("data from collapsible", data)
 
+    function slipRate(commitDate, projectedDate) {
+        const slipRateDays = commitDate.getTime() - projectedDate.getTime()
+        return Math.round(slipRateDays/1000/60/60/24)
+        }
+    
+// function projectGrouping({data}) {
+//     for (milestone in milestone.data) {
+
+//     }
+    // const projectDataGrouping = data.map((milestoneData) => milestoneData.priority)
+    // return projectDataGrouping
+// }
+// console.log("project data grouping", projectGrouping({data}))
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -52,31 +109,34 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.name}
+          {data.priority}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="right">{data.project}</TableCell>
+        <TableCell align="right">${data.revenue}</TableCell>
+        <TableCell align="right">{data.target_date}</TableCell>
+        <TableCell align="right">{data.commit_date}</TableCell>
+        <TableCell align="right">{data.projected_date}</TableCell>
+        <TableCell align="right">{slipRate(new Date(data.commit_date), new Date(data.projected_date))}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Milestones
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell>Milestone</TableCell>
+                    <TableCell>Revenue Impact</TableCell>
+                    <TableCell align="right">Target Date</TableCell>
+                    <TableCell align="right">Commit Date</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
+                    hi
+                  {/* {row.history.map((historyRow) => (
                     <TableRow key={historyRow.date}>
                       <TableCell component="th" scope="row">
                         {historyRow.date}
@@ -87,7 +147,7 @@ function Row(props) {
                         {Math.round(historyRow.amount * row.price * 100) / 100}
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ))} */}
                 </TableBody>
               </Table>
             </Box>
@@ -98,23 +158,23 @@ function Row(props) {
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
+// Row.propTypes = {
+//   row: PropTypes.shape({
+//     calories: PropTypes.number.isRequired,
+//     carbs: PropTypes.number.isRequired,
+//     fat: PropTypes.number.isRequired,
+//     history: PropTypes.arrayOf(
+//       PropTypes.shape({
+//         amount: PropTypes.number.isRequired,
+//         customerId: PropTypes.string.isRequired,
+//         date: PropTypes.string.isRequired,
+//       }),
+//     ).isRequired,
+//     name: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     protein: PropTypes.number.isRequired,
+//   }).isRequired,
+// };
 
 const rows = [
   createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
@@ -124,26 +184,30 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function CollapsibleTable() {
-  return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-}
+
+
+export default function CollapsibleTable({data}) {
+    return (
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+             <StyledTableCell></StyledTableCell>
+             <StyledTableCell>Priority</StyledTableCell>
+             <StyledTableCell>Project</StyledTableCell>
+             <StyledTableCell align="center">Total Revenue Impact</StyledTableCell>
+             <StyledTableCell align="center">Target Date</StyledTableCell>
+             <StyledTableCell align="center">Commit Date</StyledTableCell>
+             <StyledTableCell align="center">Projected Date</StyledTableCell>
+             <StyledTableCell align="center">Slip Rate (days)</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((data) => (
+              <Row key={data.project} data={data} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }

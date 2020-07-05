@@ -98,13 +98,13 @@ function App() {
   }
 
   console.log(data)
-
+  // {data[0].timelines_title}
   return (
     <div>
     
     <div style={useStyles.headerStyle}>
             <Typography variant="h4" align="center" data={data} >
-               Project Timelines
+             Project Timelines
             </Typography>
           </div>
     <div style={styles.paddingStyle}>

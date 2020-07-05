@@ -5,6 +5,7 @@ import Timeline, { TimelineHeaders, DateHeader, SidebarHeader, TodayMarker } fro
   import moment from 'moment'
 //import TreeMenu from 'react-simple-tree-menu'
 import {Typography, createMuiTheme} from '@material-ui/core'
+import _ from 'lodash'
 
 
 
@@ -175,6 +176,8 @@ function ProjectData({data}) {
 
   
   //console.log('tree data', treeData)
+  var groupedData = _.groupBy(data,'project');
+  console.log('grouped data:', groupedData)
   console.log('data', data)
   console.log('groups', groups)
   console.log('items', items)
