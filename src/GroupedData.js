@@ -88,6 +88,6 @@ export default function GroupedData({data}) {
     // export default function GroupedData({projectSummary}) {
     return (
     //   <Row groupedData={groupedData} />
-      <CollapsibleTable projectSummary={projectSummary}> </CollapsibleTable>
+      <CollapsibleTable projectSummary={projectSummary} groupedData={groupedData}> </CollapsibleTable>
     );
   }
