@@ -9,6 +9,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DataImporter from './DataImporter'
 import slipRate from './slipRate'
+import numOfCompleteMilestones from './numOfCompleteMilestones'
+import getAverage from './getAverage'
+import successRate from './successRate'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -66,8 +69,8 @@ export default function SummaryTable({data}) {
         slipRateArray.push(slipRate(new Date(data[i].commit_date), new Date(data[i].projected_date), data[i].complete))
     }
     console.log("Slip Rate Array: ", slipRateArray)
-    console.log("data.complete:",data[0].complete)
-    //console.log("slip rates:", slipRate(new Date(data[0].commit_date), new Date(data[0].projected_date)))
+    console.log("Success Rate:", successRate(slipRateArray))
+
     //CREATE REVENUE IMPACT ARRAY
     let revenueArray = [];
     for (let i = 0; i < data.length; i++) {
@@ -80,35 +83,6 @@ export default function SummaryTable({data}) {
         projectArray.push(data[i].project)
     }
     console.log("Project Array: ", projectArray)
-    // function createArrayOfAttributes(attribute){
-    //   let attributeArray = [];
-    // for (let i = 0; i < data.length; i++) {
-    //     attributeArray.push(data[i].attribute)
-    // }
-    //   return attributeArray
-    // }
-
-    // console.log("Attribute Array:", createArrayOfAttributes(revenue))
-    //FUNCTION TO GET AVERAGE OF ARRAY
-    function getAverage(arrayToAverage) {
-      let total = 0;
-      for(let i = 0; i < arrayToAverage.length; i++) {
-        total += arrayToAverage[i];
-      }
-        return Math.round(total/arrayToAverage.length)
-    }
-  
-    function MilestoneSuccessRate(slipRateArray, dataLength) {
-      let successfulMilestoneCount = 0;
-      for(const slipVal of slipRateArray){
-        if(slipVal < 0){
-          successfulMilestoneCount += 1
-        }
-      }
-      console.log('slipRateArray', slipRateArray)
-      console.log('successMilestoneCount', successfulMilestoneCount)
-        return Math.round((successfulMilestoneCount/dataLength.length)*100)
-    }
 
 
   return (
@@ -118,18 +92,18 @@ export default function SummaryTable({data}) {
           <TableRow>
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell align="center">Total # of Projects</StyledTableCell>
-            <StyledTableCell align="center">Average Slip Rate (days)</StyledTableCell>
-            <StyledTableCell align="center">Milestone Success Rate</StyledTableCell>
             <StyledTableCell align="center">Average Revenue Impact</StyledTableCell>
+            <StyledTableCell align="center">Milestone Success Rate</StyledTableCell>
+            <StyledTableCell align="center">Average Milestone Slip Rate (days)</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           <TableRow>
               <StyledTableCell>Timelines Title</StyledTableCell>
               <StyledTableCell align='center'>{data.length}</StyledTableCell>
-              <StyledTableCell align="center">{getAverage(slipRateArray)}</StyledTableCell>
-              <StyledTableCell align="center">{MilestoneSuccessRate(slipRateArray,data)}%</StyledTableCell>
               <StyledTableCell align="center">{'$' + getAverage(revenueArray)}</StyledTableCell>
+              <StyledTableCell align="center">{successRate(slipRateArray)}%</StyledTableCell>
+              <StyledTableCell align="center">{getAverage(slipRateArray)}</StyledTableCell>
             </TableRow>    
         </TableBody>
       </Table>

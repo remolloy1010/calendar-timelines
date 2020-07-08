@@ -7,7 +7,7 @@ export default function slipRate(commitDate, projectedDate, complete) {
     }
     else{
         slipRateDays = 0
-        return 0
+        return '-'
     }
 
     // return Math.round(slipRateDays/1000/60/60/24)
