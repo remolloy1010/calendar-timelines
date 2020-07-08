@@ -227,7 +227,7 @@ function ProjectData({data}) {
             {({ getRootProps }) => {
               return <div style={styles.leftSidebarStyles}>
                 <Typography variant="subtitle1" align="center" >
-                  Projects ---- Milestones ---- Revenue
+                  Projects (Milestones)
                 </Typography></div>
                 
             }}

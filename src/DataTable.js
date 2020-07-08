@@ -13,6 +13,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {Typography} from '@material-ui/core'
+import slipRate from './slipRate'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -75,10 +76,10 @@ const useStyles = makeStyles({
 export default function DataTable({data}) {
   const classes = useStyles();
   
-  function slipRate(commitDate, projectedDate) {
-    const slipRateDays = commitDate.getTime() - projectedDate.getTime()
-    return Math.round(slipRateDays/1000/60/60/24)
-    }
+  // function slipRate(commitDate, projectedDate) {
+  //   const slipRateDays = projectedDate.getTime() - commitDate.getTime()
+  //   return Math.round(slipRateDays/1000/60/60/24)
+  //   }
   
     //console.log("commit date", data[1].commit_date)
     //console.log("Slip Rate: ", slipRate(new Date(data[1].commit_date), new Date(data[1].projected_date)))
@@ -87,7 +88,7 @@ export default function DataTable({data}) {
     <>
     <ExpansionPanel classes={{ root: classes.root }} >
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon classes={{ root: classes.button}}/>}>
-        <Typography className={classes.heading, classes.root} >Summary Table</Typography>
+        <Typography className={classes.heading, classes.root} >Data Table</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails classes = {{ root: classes.detailsRoot}}>
         <Typography>
@@ -117,7 +118,7 @@ export default function DataTable({data}) {
               <StyledTableCell align="center">{data.target_date}</StyledTableCell>
               <StyledTableCell align="center">{data.commit_date}</StyledTableCell>
               <StyledTableCell align="center">{data.projected_date}</StyledTableCell>
-              <StyledTableCell align="center">{slipRate(new Date(data.commit_date), new Date(data.projected_date))}</StyledTableCell>
+              <StyledTableCell align="center">{slipRate(new Date(data.commit_date), new Date(data.projected_date),data.complete)}</StyledTableCell>
 
             </StyledTableRow>
           ))}

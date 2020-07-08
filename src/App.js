@@ -113,11 +113,12 @@ function App() {
       <button onClick={clearData}> Clear Data</button></div> 
       <ProjectData data={data}/>
       <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
-        <DataTable data={data}></DataTable>
-      </div>
-      <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
         <SummaryTable data={data}></SummaryTable>
       </div>
+      <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
+        <DataTable data={data}></DataTable>
+      </div>
+      
       {/* <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
         <CollapsibleTable data={data}></CollapsibleTable>
       </div> */}

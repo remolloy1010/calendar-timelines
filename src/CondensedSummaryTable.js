@@ -16,6 +16,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import _ from 'lodash';
 import GroupedData from './GroupedData'
+import slipRate from './slipRate'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -94,10 +95,10 @@ function Row({ rowData = {}, groupedData = {} }) {
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
 
-    function slipRate(commitDate, projectedDate) {
-        const slipRateDays = commitDate.getTime() - projectedDate.getTime()
-        return Math.round(slipRateDays/1000/60/60/24)
-        }
+    // function slipRate(commitDate, projectedDate) {
+    //     const slipRateDays = projectedDate.getTime() - commitDate.getTime()
+    //     return Math.round(slipRateDays/1000/60/60/24)
+    //     }
     
   return (
     <React.Fragment>
@@ -122,9 +123,7 @@ function Row({ rowData = {}, groupedData = {} }) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
-                List of Milestones
-              </Typography>
+              <Typography variant="h6" gutterBottom component="div"></Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -133,6 +132,8 @@ function Row({ rowData = {}, groupedData = {} }) {
                     <TableCell align="center">Target Date</TableCell>
                     <TableCell align="center">Commit Date</TableCell>
                     <TableCell align="center">Projected Date</TableCell>
+                    <TableCell align="center">Slip Rate (days)</TableCell>
+
 
                   </TableRow>
                 </TableHead>
@@ -160,6 +161,8 @@ function Row({ rowData = {}, groupedData = {} }) {
                                     <TableCell align="center">{groups[0].target_date}</TableCell>
                                     <TableCell align="center">{groups[0].commit_date}</TableCell>
                                     <TableCell align="center">{groups[0].projected_date}</TableCell>
+                                    <TableCell align="center">{slipRate(new Date(groups[0].commit_date), new Date(groups[0].projected_date),groups[0].complete)}</TableCell>
+
                                 </TableRow>
                                 // )})
                                 )
