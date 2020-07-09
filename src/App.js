@@ -18,6 +18,7 @@ import DataTable from './DataTable'
 import SummaryTable from './SummaryTable'
 import CollapsibleTable from './CondensedSummaryTable';
 import GroupedData from './GroupedData'
+// import countSuccesses from './countSuccesses'
 
 
 const styles = {
@@ -125,6 +126,7 @@ function App() {
       <div style={{...styles.paddingStyle, marginTop: 30, marginRight: 150, marginLeft: 150}}>
         <GroupedData data={data}></GroupedData>
       </div>
+      {/* <div> <countSuccesses data={data}> </countSuccesses></div> */}
     {/* <ProjectData>
     </ProjectData> */}
 

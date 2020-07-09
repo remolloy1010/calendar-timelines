@@ -12,7 +12,11 @@ import slipRate from './slipRate'
 import numOfCompleteMilestones from './numOfCompleteMilestones'
 import getAverage from './getAverage'
 import successRate from './successRate'
-
+import GroupedData from './GroupedData'
+import groupedDataByProject from './groupedDataByProject'
+import projectSummary from './projectSummary'
+import groupedDataObject from './groupedDataObject'
+import countSuccesses from './countSuccesses'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -32,19 +36,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 const useStyles = makeStyles({
   table: {
@@ -55,13 +46,6 @@ const useStyles = makeStyles({
 export default function SummaryTable({data}) {
   const classes = useStyles();
   //const timelinesTitle = data[0].timelines_title;
-
-  //FUNCTION TO FIND SLIP RATE
-  // function slipRate(commitDate, projectedDate) {
-  //   const slipRateDays = projectedDate.getTime() - commitDate.getTime()
-  //   return Math.round(slipRateDays/1000/60/60/24)
-
-  //   }
 
     //CREATE SLIP RATE ARRAY
     let slipRateArray = [];
@@ -83,6 +67,54 @@ export default function SummaryTable({data}) {
         projectArray.push(data[i].project)
     }
     console.log("Project Array: ", projectArray)
+    console.log('Project Summ from Function:', projectSummary(groupedDataObject(data)))
+
+    let slipRateSumsArray = [];
+    for(let i = 0; i < projectSummary(groupedDataObject(data)).length; i++){
+      slipRateSumsArray.push(projectSummary(groupedDataObject(data))[i].sum_slip_rate)
+
+    }
+    console.log(slipRateSumsArray)
+    
+    // Milestone Success Rate Calculation
+    let successCount = 0;
+    let arrayCount = 0;
+    for(let i=0; i < data.length; i++){
+
+        if (new Date(data[i].projected_date).getTime() < new Date(data[i].commit_date).getTime() && data[i].complete === 'Y'){
+          successCount += 1;
+          arrayCount += 1;
+        }
+        else if(data[i].complete === 'N'){
+          successCount += 0;
+          arrayCount += 0;
+        }
+        else{
+          successCount += 0;
+          arrayCount += 1;
+        }
+           
+    }
+
+    // Project Success Rate
+    let successCountProject = 0;
+    let arrayCountProject = 0;
+    for(let i=0; i < projectSummary(groupedDataObject(data)).length; i++){
+
+        if (new Date(projectSummary(groupedDataObject(data))[i].projected_completion_date).getTime() < new Date(projectSummary(groupedDataObject(data))[i].commit_completion_date).getTime()){
+          successCountProject += 1;
+          arrayCountProject += 1;
+        }
+        // else if(data[i].complete === 'N'){
+        //   successCount += 0;
+        //   arrayCount += 0;
+        // }
+        else{
+          successCountProject += 0;
+          arrayCountProject += 1;
+        }
+           
+    }
 
 
   return (
@@ -92,7 +124,9 @@ export default function SummaryTable({data}) {
           <TableRow>
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell align="center">Total # of Projects</StyledTableCell>
-            <StyledTableCell align="center">Average Revenue Impact</StyledTableCell>
+            <StyledTableCell align="center">Average Revenue Impact ($M)</StyledTableCell>
+            <StyledTableCell align="center">Project Success Rate</StyledTableCell>
+            <StyledTableCell align="center">Average Project Slip Rate (days)</StyledTableCell>
             <StyledTableCell align="center">Milestone Success Rate</StyledTableCell>
             <StyledTableCell align="center">Average Milestone Slip Rate (days)</StyledTableCell>
           </TableRow>
@@ -100,9 +134,11 @@ export default function SummaryTable({data}) {
         <TableBody>
           <TableRow>
               <StyledTableCell>Timelines Title</StyledTableCell>
-              <StyledTableCell align='center'>{data.length}</StyledTableCell>
+              <StyledTableCell align='center'>{groupedDataByProject(data).length}</StyledTableCell>
               <StyledTableCell align="center">{'$' + getAverage(revenueArray)}</StyledTableCell>
-              <StyledTableCell align="center">{successRate(slipRateArray)}%</StyledTableCell>
+              <StyledTableCell align="center">{Math.round((successCountProject/arrayCountProject)*100)}%</StyledTableCell>
+              <StyledTableCell align="center">{getAverage(slipRateSumsArray)}</StyledTableCell>
+              <StyledTableCell align="center">{Math.round((successCount/arrayCount)*100)}%</StyledTableCell>
               <StyledTableCell align="center">{getAverage(slipRateArray)}</StyledTableCell>
             </TableRow>    
         </TableBody>

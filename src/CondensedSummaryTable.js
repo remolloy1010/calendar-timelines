@@ -112,7 +112,7 @@ function Row({ rowData = {}, groupedData = {} }) {
           {rowData.priority}
         </TableCell>
         <TableCell align="center">{rowData.project_name}</TableCell>
-        <TableCell align="center">{rowData.num_of_milestones}</TableCell>
+        <TableCell align="center">{rowData.commit_date}</TableCell>
         <TableCell align="center">${rowData.total_revenue}</TableCell>
         {/* <TableCell align="center">{data.target_date}</TableCell>
         <TableCell align="center">{data.commit_date}</TableCell>
@@ -147,8 +147,8 @@ function Row({ rowData = {}, groupedData = {} }) {
                     
                     {Object.keys(groupedData).map((groupKey,i) => {
                         const groups = groupedData[groupKey]
-                        console.log("groups:",groups)
-                        console.log('i:',i)
+                        // console.log("groups:",groups)
+                        // console.log('i:',i)
                         // console.log('groupKey', groupKey)
                         // return(groups.map(group => {
                         //     console.log('group:', group)
@@ -196,15 +196,6 @@ function Row({ rowData = {}, groupedData = {} }) {
 //     protein: PropTypes.number.isRequired,
 //   }).isRequired,
 // };
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
-
 
 
 export default function CollapsibleTable({projectSummary, groupedData}) {
@@ -268,8 +259,9 @@ export default function CollapsibleTable({projectSummary, groupedData}) {
              <StyledTableCell></StyledTableCell>
              <StyledTableCell align="center">Priority</StyledTableCell>
              <StyledTableCell align="center">Project</StyledTableCell>
-             <StyledTableCell align="center"># of Milestones</StyledTableCell>
-             <StyledTableCell align="center">Total Revenue Impact</StyledTableCell>
+             {/* <StyledTableCell align="center"># of Milestones</StyledTableCell> */}
+             <StyledTableCell align="center">Project Commit Date</StyledTableCell>
+             <StyledTableCell align="center">Total Revenue Impact ($M)</StyledTableCell>
              {/* <StyledTableCell align="center">Target Date</StyledTableCell>
              <StyledTableCell align="center">Commit Date</StyledTableCell>
              <StyledTableCell align="center">Projected Date</StyledTableCell>
