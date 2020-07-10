@@ -17,6 +17,12 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import _ from 'lodash';
 import GroupedData from './GroupedData'
 import slipRate from './slipRate'
+import { ExpansionPanel } from '@material-ui/core';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -46,7 +52,7 @@ const useRowStyles = makeStyles({
 
 const useStyles = makeStyles({
     table: {
-      minWidth: 500,
+      //minWidth: 500,
       // marginTop: 20,
       // marginBottom: 20,
       // marginLeft: 20,
@@ -55,6 +61,9 @@ const useStyles = makeStyles({
     root: {
       backgroundColor: '#1a237e',
       color: 'white',
+      width: 1000,
+      // height: 50,
+      // justifyContent: 'center'
     },
     detailsRoot: {
       backgroundColor: 'white',
@@ -64,24 +73,22 @@ const useStyles = makeStyles({
       paddingBottom: 20
     }, 
     button: {
-      color: 'white'
+      color: 'white',
+      // height: 50
+    },
+    content: {
+      justifyContent: 'center'
     }
   });
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      { date: '2020-01-05', customerId: '11091700', amount: 3 },
-      { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-    ],
-  };
-}
+  const styles = {
+    expansionPanelText:{
+      justifyContent: 'center',
+      display: 'flex',
+      alignItems: 'center'
+    }
+  }
+
 
 function Row({ rowData = {}, groupedData = {} }) {
     //const {data} = data;
@@ -102,6 +109,12 @@ function Row({ rowData = {}, groupedData = {} }) {
     
   return (
     <React.Fragment>
+      {/* <ExpansionPanel classes={{ root: classes.root }} > */}
+      {/* <ExpansionPanel>  */}
+      {/* <ExpansionPanelSummary expandIcon={<ExpandMoreIcon classes={{ root: classes.button}}/>}>
+        <Typography className={classes.heading, classes.root} >Data Table</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails classes = {{ root: classes.detailsRoot}}> */}
       <TableRow className={classes.root}>
         <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
@@ -175,6 +188,9 @@ function Row({ rowData = {}, groupedData = {} }) {
           </Collapse>
         </TableCell>
       </TableRow>
+      {/* </ExpansionPanelDetails> */}
+    {/* </ExpansionPanel> */}
+    {/* </ExpansionPanel> */}
     </React.Fragment>
   );
 }
@@ -250,7 +266,12 @@ export default function CollapsibleTable({projectSummary, groupedData}) {
     // console.log('groupedDataArray:',groupedDataArray(groupedData))
     // console.log('object keys:', groupedData_projects)
     return (
-    
+      <div style={{...styles.expansionPanelText}}>
+      <ExpansionPanel classes={{ root: classes.root }} >
+      <ExpansionPanelSummary classes={{ content: classes.content }} expandIcon={<ExpandMoreIcon classes={{ root: classes.button}}/>}>
+        <Typography variant='h5' align='center' >Data Table</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails classes = {{ root: classes.detailsRoot}}>
       <TableContainer component={Paper} classes={{ table: classes.table }}>
         {/* <Row groupedData={groupedData}/> */}
         <Table aria-label="collapsible table">
@@ -289,5 +310,8 @@ export default function CollapsibleTable({projectSummary, groupedData}) {
               </StyledTableCell> */}
         </Table>
       </TableContainer>
+      </ExpansionPanelDetails>
+    </ExpansionPanel> 
+    </div>
     );
   }

@@ -93,38 +93,38 @@ export default function DataTable({data}) {
       <ExpansionPanelDetails classes = {{ root: classes.detailsRoot}}>
         <Typography>
         <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Priority</StyledTableCell>
-            <StyledTableCell>Project</StyledTableCell>
-            <StyledTableCell align="left">Milestone</StyledTableCell>
-            <StyledTableCell align="center">Revenue Impact</StyledTableCell>
-            <StyledTableCell align="center">Target Date</StyledTableCell>
-            <StyledTableCell align="center">Commit Date</StyledTableCell>
-            <StyledTableCell align="center">Projected Date</StyledTableCell>
-            <StyledTableCell align="center">Slip Rate (days)</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((data) => (
-            <StyledTableRow key={data.priority}>
-              <StyledTableCell component="th" scope="row">
-                {data.priority}
-              </StyledTableCell>
-              <StyledTableCell align="left">{data.project}</StyledTableCell>
-              <StyledTableCell align="left">{data.milestone}</StyledTableCell>
-              <StyledTableCell align="center">${data.revenue}</StyledTableCell>
-              <StyledTableCell align="center">{data.target_date}</StyledTableCell>
-              <StyledTableCell align="center">{data.commit_date}</StyledTableCell>
-              <StyledTableCell align="center">{data.projected_date}</StyledTableCell>
-              <StyledTableCell align="center">{slipRate(new Date(data.commit_date), new Date(data.projected_date),data.complete)}</StyledTableCell>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Priority</StyledTableCell>
+                <StyledTableCell>Project</StyledTableCell>
+                <StyledTableCell align="left">Milestone</StyledTableCell>
+                <StyledTableCell align="center">Revenue Impact</StyledTableCell>
+                <StyledTableCell align="center">Target Date</StyledTableCell>
+                <StyledTableCell align="center">Commit Date</StyledTableCell>
+                <StyledTableCell align="center">Projected Date</StyledTableCell>
+                <StyledTableCell align="center">Slip Rate (days)</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((data) => (
+                <StyledTableRow key={data.priority}>
+                  <StyledTableCell component="th" scope="row">
+                    {data.priority}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">{data.project}</StyledTableCell>
+                  <StyledTableCell align="left">{data.milestone}</StyledTableCell>
+                  <StyledTableCell align="center">${data.revenue}</StyledTableCell>
+                  <StyledTableCell align="center">{data.target_date}</StyledTableCell>
+                  <StyledTableCell align="center">{data.commit_date}</StyledTableCell>
+                  <StyledTableCell align="center">{data.projected_date}</StyledTableCell>
+                  <StyledTableCell align="center">{slipRate(new Date(data.commit_date), new Date(data.projected_date),data.complete)}</StyledTableCell>
 
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
         </Typography>
       </ExpansionPanelDetails>
     </ExpansionPanel>
