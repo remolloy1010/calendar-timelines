@@ -22,7 +22,7 @@ const theme = createMuiTheme({
     MuiTypography: {
       text: {
         color: 'white',
-        marginTop: 20
+        marginTop: 10
       }
     }
   }

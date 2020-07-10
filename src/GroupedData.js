@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import CollapsibleTable from './CondensedSummaryTable'
+import CollapsibleTable from './CollapsibleTable'
 import groupedDataByProject from './groupedDataByProject'
 import SummaryTable from './SummaryTable';
 import getAverage from './getAverage'

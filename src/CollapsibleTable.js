@@ -21,8 +21,27 @@ import { ExpansionPanel } from '@material-ui/core';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { CheckCircle } from 'react-feather';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-
+const THEME = createMuiTheme({
+  typography: {
+    // "fontFamily": "\"MyCustomFont\"",
+    // "fontSize": 20,
+    // "lineHeight": 1.5,
+    // "letterSpacing": 0.32,
+    // useNextVariants: true,
+    // suppressDeprecationWarnings: true,
+    body2: {
+      "fontWeight": 600,
+    },
+    subtitle1: {
+      "fontWeight": 500,
+    }
+  },
+});
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -56,7 +75,9 @@ const useStyles = makeStyles({
       // marginTop: 20,
       // marginBottom: 20,
       // marginLeft: 20,
-      // marginRight: 20
+      // marginRight: 20,
+      backgroundColor: '#1a237e',
+
     },
     root: {
       backgroundColor: '#1a237e',
@@ -86,6 +107,10 @@ const useStyles = makeStyles({
       justifyContent: 'center',
       display: 'flex',
       alignItems: 'center'
+    },
+    completeIcon: {
+      backgroundColor: 'white',
+      color: 'green'
     }
   }
 
@@ -106,7 +131,16 @@ function Row({ rowData = {}, groupedData = {} }) {
     //     const slipRateDays = projectedDate.getTime() - commitDate.getTime()
     //     return Math.round(slipRateDays/1000/60/60/24)
     //     }
-    
+    function milestoneComplete(complete) {
+      if(complete === 'Y'){
+        return <CheckBoxIcon style={styles.completeIcon}> </CheckBoxIcon>
+      }
+      else{
+        return ''
+      }
+    }
+    // {if(groups[0].complete === 'Y') ? <CheckBoxIcon style={styles.completeIcon}> </CheckBoxIcon> : 'empty'}
+
   return (
     <React.Fragment>
       {/* <ExpansionPanel classes={{ root: classes.root }} > */}
@@ -122,11 +156,28 @@ function Row({ rowData = {}, groupedData = {} }) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" align="center">
-          {rowData.priority}
+          <MuiThemeProvider theme={THEME}>
+            <Typography variant='body2'>{rowData.priority}</Typography>
+          </MuiThemeProvider> 
         </TableCell>
-        <TableCell align="center">{rowData.project_name}</TableCell>
-        <TableCell align="center">{rowData.commit_date}</TableCell>
-        <TableCell align="center">${rowData.total_revenue}</TableCell>
+
+        <TableCell align="center">
+          <MuiThemeProvider theme={THEME}>
+            <Typography variant='body2'>{rowData.project_name}</Typography>
+          </MuiThemeProvider>
+        </TableCell>
+
+        <TableCell align="center">
+          <MuiThemeProvider theme={THEME}>
+            <Typography variant='body2'>{rowData.commit_date}</Typography>
+          </MuiThemeProvider>
+        </TableCell>
+
+        <TableCell align="center">
+          <MuiThemeProvider theme={THEME}>
+            <Typography variant='body2'>${rowData.total_revenue}</Typography>
+          </MuiThemeProvider>
+        </TableCell>
         {/* <TableCell align="center">{data.target_date}</TableCell>
         <TableCell align="center">{data.commit_date}</TableCell>
         <TableCell align="center">{data.projected_date}</TableCell>
@@ -140,12 +191,50 @@ function Row({ rowData = {}, groupedData = {} }) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Milestone</TableCell>
-                    <TableCell align="center">Revenue Impact</TableCell>
-                    <TableCell align="center">Target Date</TableCell>
-                    <TableCell align="center">Commit Date</TableCell>
-                    <TableCell align="center">Projected Date</TableCell>
-                    <TableCell align="center">Slip Rate (days)</TableCell>
+                    
+                    <TableCell>
+                      <MuiThemeProvider theme={THEME}>
+                        <Typography variant='body2'> </Typography>
+                      </MuiThemeProvider>
+                    </TableCell>
+
+                    <TableCell>
+                      <MuiThemeProvider theme={THEME}>
+                        <Typography variant='body2'>Milestone</Typography>
+                      </MuiThemeProvider>
+                    </TableCell>
+                    
+                    <TableCell align="center">
+                      <MuiThemeProvider theme={THEME}>
+                        <Typography variant='body2'>Start Date</Typography>
+                      </MuiThemeProvider>
+                    </TableCell>
+                    
+                    <TableCell align="center">
+                      <MuiThemeProvider theme={THEME}>
+                        <Typography variant='body2'>Projected Completion Date</Typography>
+                      </MuiThemeProvider>
+                    </TableCell>
+                    
+                    <TableCell align="center">
+                      <MuiThemeProvider theme={THEME}>
+                        <Typography variant='body2'>Target Completion Date</Typography>
+                      </MuiThemeProvider>                    
+                    </TableCell>
+                    
+                    <TableCell align="center">
+                      <MuiThemeProvider theme={THEME}>
+                        <Typography variant='body2'>Commit Completion Date</Typography>
+                      </MuiThemeProvider>                    
+                    </TableCell>
+                    
+                    <TableCell align="center">
+                      <MuiThemeProvider theme={THEME}>
+                        <Typography variant='body2'>Slip Rate (days)</Typography>
+                      </MuiThemeProvider>                    
+                    </TableCell>
+                    {/* <TableCell align="center">Slip Rate (%)</TableCell> */}
+
 
 
                   </TableRow>
@@ -166,14 +255,18 @@ function Row({ rowData = {}, groupedData = {} }) {
                         // return(groups.map(group => {
                         //     console.log('group:', group)
                             return(
+                              
                                 <TableRow key={groups[0].project}>
+                                    <TableCell align="center">
+                                      {milestoneComplete(groups[0].complete)}
+                                    </TableCell>
                                     <TableCell component="th" scope="row">
                                         {groups[0].milestone}
                                     </TableCell>
-                                    <TableCell align="center">${groups[0].revenue}</TableCell>
+                                    <TableCell align="center">{groups[0].start_date}</TableCell>
+                                    <TableCell align="center">{groups[0].projected_date}</TableCell>
                                     <TableCell align="center">{groups[0].target_date}</TableCell>
                                     <TableCell align="center">{groups[0].commit_date}</TableCell>
-                                    <TableCell align="center">{groups[0].projected_date}</TableCell>
                                     <TableCell align="center">{slipRate(new Date(groups[0].commit_date), new Date(groups[0].projected_date),groups[0].complete)}</TableCell>
 
                                 </TableRow>
@@ -278,11 +371,30 @@ export default function CollapsibleTable({projectSummary, groupedData}) {
           <TableHead>
             <TableRow>
              <StyledTableCell></StyledTableCell>
-             <StyledTableCell align="center">Priority</StyledTableCell>
-             <StyledTableCell align="center">Project</StyledTableCell>
-             {/* <StyledTableCell align="center"># of Milestones</StyledTableCell> */}
-             <StyledTableCell align="center">Project Commit Date</StyledTableCell>
-             <StyledTableCell align="center">Total Revenue Impact ($M)</StyledTableCell>
+
+             <StyledTableCell align="center">
+                <MuiThemeProvider theme={THEME}>
+                  <Typography variant='subtitle1'>Priority</Typography>
+                </MuiThemeProvider>
+              </StyledTableCell>
+
+              <StyledTableCell align="center">
+                  <MuiThemeProvider theme={THEME}>
+                    <Typography variant='subtitle1'>Project</Typography>
+                  </MuiThemeProvider>
+              </StyledTableCell>
+
+             <StyledTableCell align="center">
+                <MuiThemeProvider theme={THEME}>
+                  <Typography variant='subtitle1'>Project Commit Date</Typography>
+                </MuiThemeProvider>             
+              </StyledTableCell>
+
+             <StyledTableCell align="center">
+             <MuiThemeProvider theme={THEME}>
+                  <Typography variant='subtitle1'>Total Revenue Impact ($M)</Typography>
+                </MuiThemeProvider>
+             </StyledTableCell>
              {/* <StyledTableCell align="center">Target Date</StyledTableCell>
              <StyledTableCell align="center">Commit Date</StyledTableCell>
              <StyledTableCell align="center">Projected Date</StyledTableCell>

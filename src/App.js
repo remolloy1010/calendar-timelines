@@ -16,7 +16,7 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import DataTable from './DataTable'
 import SummaryTable from './SummaryTable'
-import CollapsibleTable from './CondensedSummaryTable';
+import CollapsibleTable from './CollapsibleTable';
 import GroupedData from './GroupedData'
 import CardWidget from './CardWidget';
 import NumberCard from './NumberCard';
@@ -27,6 +27,7 @@ import projectSummary from './projectSummary';
 import groupedDataObject from './groupedDataObject'
 import getSum from './getSum';
 import getAverage from './getAverage';
+import isDataEmpty from './isDataEmpty'
 
 // import countSuccesses from './countSuccesses'
 
@@ -182,14 +183,27 @@ function App() {
 
   console.log(data)
 
+  // let title = data[0].timelines_title ? 'blank' : 'stranger'
+  
+
+  // return Object.is(data, undefined) ? 10 : 5;
+
+
+  // var data[0].timelines_title = (typeof x === 'undefined') ? your_default_value : x;
   // {data[0].timelines_title}
   return (
 
     <div>
     
     <div style={styles.headerStyle}>
+    {/* {value2 && <Typography variant='h5' >
+          {value2}
+        </Typography>} */}
+        {/* {data[0].timelines_title && <Typography variant="h4" align="center" data={data} >
+             {data[0].timelines_title} Project Timelines
+            </Typography>} */}
             <Typography variant="h4" align="center" data={data} >
-             Project Timelines
+              Integrated Safety Project Timelines
             </Typography>
           </div>
     <div style={styles.paddingStyle}>
@@ -199,7 +213,7 @@ function App() {
       
       <div style={styles.headerStyleBlock}> 
         <div style={{...styles.headerStyle, marginTop: 15, width: 700, background: '#1a237e'}}> 
-          <Typography align='center' variant='h5'>Portfolio Metrics</Typography> 
+          <Typography align='center' variant='h5'>Integrated Safety Portfolio Metrics</Typography> 
         {/* <Grid container className={classes.root} spacing={2}> 
           <Grid item xs={12}>
             <Grid container justify="center" spacing={spacing}> */}
@@ -215,7 +229,7 @@ function App() {
             <Grid container justify="center" spacing={spacing}>
             <NumberCard variant='avatar' Icon={Clipboard} value={projectSummary(groupedDataObject(data)).length} title='# of Projects'></NumberCard>
             {/* <NumberCard variant='avatar' Icon={Map} value={data.length} title='# of Milestones'></NumberCard> */}
-            <NumberCard variant='avatar' Icon={DollarSign} value={'$' + Math.round(getAverage(revenueArray)/12) + 'M'} title='Average Monthly Revenue Impact'></NumberCard>
+            <NumberCard variant='avatar' Icon={DollarSign} value={'$' + Math.round(getAverage(revenueArray)/12) + 'M'} title='Avg Monthly Revenue Impact'></NumberCard>
             {/* <NumberCard variant='avatar' Icon={TrendingDown} value={'-30%'} title='Average Milestones Slip Rate'></NumberCard> */}
 
               {/* {[0, 1, 2, 3, 4].map((value) => (
