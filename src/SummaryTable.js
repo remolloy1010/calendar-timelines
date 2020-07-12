@@ -17,6 +17,7 @@ import groupedDataByProject from './groupedDataByProject'
 import projectSummary from './projectSummary'
 import groupedDataObject from './groupedDataObject'
 import countSuccesses from './countSuccesses'
+import timeDuration from './timeDuration'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -95,6 +96,7 @@ export default function SummaryTable({data}) {
         }
            
     }
+    console.log('timeDuration', timeDuration(new Date(data[0].start_date), new Date(data[0].projected_date)))
 
     // Project Success Rate
     let successCountProject = 0;

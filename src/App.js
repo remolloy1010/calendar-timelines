@@ -27,7 +27,9 @@ import projectSummary from './projectSummary';
 import groupedDataObject from './groupedDataObject'
 import getSum from './getSum';
 import getAverage from './getAverage';
-import isDataEmpty from './isDataEmpty'
+import isDataEmpty from './isDataEmpty';
+import timeDuration from './timeDuration'
+import slipRate from './slipRate'
 
 // import countSuccesses from './countSuccesses'
 
@@ -191,6 +193,11 @@ function App() {
 
   // var data[0].timelines_title = (typeof x === 'undefined') ? your_default_value : x;
   // {data[0].timelines_title}
+  console.log('timeDuration', timeDuration(data[0].start_date, data[0].projected_date))
+  console.log('slipRate in days', slipRate(data[0].commit_date, data[0].projected_date, data[0].complete))
+  console.log('slipRate', Math.round(slipRate(data[0].commit_date, data[0].projected_date, data[0].complete)/timeDuration(data[0].start_date, data[0].projected_date)*100) +'%')
+
+  // console.log('slipRate', slipRate(new Date(data[0].commit_date), new Date(data[0].projected_date))/timeDuration(new Date(data[0].start_date), new Date(data[0].projected_date))*100)
   return (
 
     <div>
@@ -247,19 +254,9 @@ function App() {
         <Grid container className={classes.root} spacing={2}> 
           <Grid item xs={12}>
             <Grid container justify="center" spacing={spacing}>
-            <NumberCard variant='avatar' Icon={CheckCircle} value={'Projects: ' + Math.round((successCountProject/arrayCountProject)*100)+'%'} 
-                value2={'Milestones: '+ Math.round((successCount/arrayCount)*100)+'%'} title='Success Rate'></NumberCard>
-            {/* <NumberCard variant='avatar' Icon={CheckCircle} value={Math.round((successCount/arrayCount)*100)+'%'} title='Milestones Success Rate'></NumberCard> */}
-            <NumberCard variant='avatar' Icon={TrendingDown} value={'Projects: ' + '-12%'} value2={'Milestones: ' + '-30%'} title='Average Slip Rate'></NumberCard>
-            {/* <NumberCard variant='avatar' Icon={TrendingDown} value={'-30%'} title='Average Milestones Slip Rate'></NumberCard> */}
-
-              {/* {[0, 1, 2, 3, 4].map((value) => (
-                <Grid key={value} item>
-                  {/* <Paper className={classes.paper}/>hiii */}
-                  {/* <CardWidget>Hiiiii</CardWidget> */}
-                  {/* <NumberCard variant='success' Icon={UserCheck} value={data[7].priority} title='Ready for pickup'></NumberCard>
-                </Grid>
-              ))} */} 
+              <NumberCard variant='avatar' Icon={CheckCircle} value={'Projects: ' + Math.round((successCountProject/arrayCountProject)*100)+'%'} 
+                  value2={'Milestones: '+ Math.round((successCount/arrayCount)*100)+'%'} title='Success Rate'></NumberCard>
+              <NumberCard variant='avatar' Icon={TrendingDown} value={'Projects: ' + '-12%'} value2={'Milestones: ' + '-30%'} title='Average Slip Rate'></NumberCard>
             </Grid>
           </Grid>
         </Grid>
