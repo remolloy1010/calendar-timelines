@@ -25,6 +25,8 @@ import { CheckCircle } from 'react-feather';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import timeDuration from './timeDuration'
+import slipRatePerctg from './slipRatePerctg'
 
 const THEME = createMuiTheme({
   typography: {
@@ -230,7 +232,7 @@ function Row({ rowData = {}, groupedData = {} }) {
                     
                     <TableCell align="center">
                       <MuiThemeProvider theme={THEME}>
-                        <Typography variant='body2'>Slip Rate (days)</Typography>
+                        <Typography variant='body2'>Slip Rate</Typography>
                       </MuiThemeProvider>                    
                     </TableCell>
                     {/* <TableCell align="center">Slip Rate (%)</TableCell> */}
@@ -267,7 +269,7 @@ function Row({ rowData = {}, groupedData = {} }) {
                                     <TableCell align="center">{groups[0].projected_date}</TableCell>
                                     <TableCell align="center">{groups[0].target_date}</TableCell>
                                     <TableCell align="center">{groups[0].commit_date}</TableCell>
-                                    <TableCell align="center">{slipRate(new Date(groups[0].commit_date), new Date(groups[0].projected_date),groups[0].complete)}</TableCell>
+                                    <TableCell align="center">{slipRatePerctg(slipRate(groups[0].commit_date, groups[0].projected_date, groups[0].complete),timeDuration(groups[0].start_date, groups[0].projected_date))}</TableCell>
 
                                 </TableRow>
                                 // )})
