@@ -145,6 +145,26 @@ function App() {
          
   }
 
+  // Slip Rate Array
+  let count = 0;
+  // let slipCount = 0;
+  let slipRateArray = [];
+
+  for(let i=0; i < data.length; i++) {
+    let slipRateVal = slipRate(data[i].commit_date, data[i].projected_date, data[i].complete)
+    if(slipRateVal === '-'){
+      count += 0;      // slipCount += 0;
+      // console.log('empty')
+    }
+    else{
+      let slipRatePrctg = Math.round(slipRateVal/timeDuration(data[i].start_date, data[i].projected_date)*100)
+      slipRateArray.push(slipRatePrctg)
+      count += 1;
+    }
+  }
+  console.log('slipRateArray', slipRateArray)
+  console.log('count', count)
+
   // Project Success Rate
   let successCountProject = 0;
   let arrayCountProject = 0;
@@ -256,7 +276,7 @@ function App() {
             <Grid container justify="center" spacing={spacing}>
               <NumberCard variant='avatar' Icon={CheckCircle} value={'Projects: ' + Math.round((successCountProject/arrayCountProject)*100)+'%'} 
                   value2={'Milestones: '+ Math.round((successCount/arrayCount)*100)+'%'} title='Success Rate'></NumberCard>
-              <NumberCard variant='avatar' Icon={TrendingDown} value={'Projects: ' + '-12%'} value2={'Milestones: ' + '-30%'} title='Average Slip Rate'></NumberCard>
+              <NumberCard variant='avatar' Icon={TrendingDown} value={'Projects: ' + '??%'} value2={'Milestones: ' + getAverage(slipRateArray)+'%'} title='Average Slip Rate'></NumberCard>
             </Grid>
           </Grid>
         </Grid>
