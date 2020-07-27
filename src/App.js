@@ -30,6 +30,8 @@ import getAverage from './getAverage';
 import isDataEmpty from './isDataEmpty';
 import timeDuration from './timeDuration'
 import slipRate from './slipRate'
+import min from 'lodash/min'
+
 
 // import countSuccesses from './countSuccesses'
 
@@ -216,6 +218,11 @@ function App() {
   console.log('timeDuration', timeDuration(data[0].start_date, data[0].projected_date))
   console.log('slipRate in days', slipRate(data[0].commit_date, data[0].projected_date, data[0].complete))
   console.log('slipRate', Math.round(slipRate(data[0].commit_date, data[0].projected_date, data[0].complete)/timeDuration(data[0].start_date, data[0].projected_date)*100) +'%')
+
+  const arrayOfDates = min(['4/25/2020', '5/21/2020','3/1/2020'])
+  // var maxDate=new Date(Math.max.apply(null,arrayOfDates));
+
+  console.log('minDate:', arrayOfDates)
 
   // console.log('slipRate', slipRate(new Date(data[0].commit_date), new Date(data[0].projected_date))/timeDuration(new Date(data[0].start_date), new Date(data[0].projected_date))*100)
   return (

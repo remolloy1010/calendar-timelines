@@ -14,6 +14,14 @@ export default function GroupedData({data}) {
     
     var groupedData = _.groupBy(data,'project');
     console.log('grouped data:', groupedData)
+    console.log('length:', groupedData.length)
+    // console.log('start data:', groupedData[0].start_date)
+
+    for(let i=0; i < groupedData.length; i++){
+      console.log("i", i)
+      console.log('length', groupedData.length)
+      // console.log("start date", groupedData[i].start_date)
+    }
 
     function totalRevenueImpactperProject(groupedData) {
       return Object.keys(groupedData).map(key => {

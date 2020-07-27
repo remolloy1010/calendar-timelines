@@ -3,7 +3,37 @@ import slipRate from './slipRate'
 import getSum from './getSum'
 import commitCompletionDate from "./commitCompletionDate";
 import projectedCompletionDate from './projectedCompletionDate'
+// import { max } from "lodash";
+import min from 'lodash/min';
+import max from 'lodash/max'
 
+    function projectStartDate(groupedData) {
+        return Object.keys(groupedData).map(key => {
+            let startDateArray = [];
+            groupedData[key].forEach(eachInstance => {
+                startDateArray.push(eachInstance.start_date)
+                // console.log('startArray start_date:', eachInstance.start_date)
+            });
+            // console.log('startArray:', startArray)
+
+            return startDateArray
+        });
+        
+    }
+
+    function projectEndDate(groupedData) {
+        return Object.keys(groupedData).map(key => {
+            let endDateArray = [];
+            groupedData[key].forEach(eachInstance => {
+                endDateArray.push(eachInstance.commit_date)
+                // console.log('startArray start_date:', eachInstance.start_date)
+            });
+            // console.log('startArray:', startArray)
+
+            return endDateArray
+        });
+        
+    }
 
     function totalRevenueImpactperProject(groupedData) {
         return Object.keys(groupedData).map(key => {
@@ -74,11 +104,14 @@ export default function projectSummary(groupedData){
       num_of_milestones: numOfMilestonesPerProject(groupedData)[i],
       total_revenue: totalRevenueImpactperProject(groupedData)[i],
       priority: priorityPerProject(groupedData)[i],
-      commit_completion_date: commitCompletionDate(groupedData)[i],
+      commit_completion_date: max(projectEndDate(groupedData)[i]),
       sum_slip_rate: (getSum(avgSlipRate(groupedData)[i])),
       projected_completion_date: projectedCompletionDate(groupedData)[i],
+      project_start_date: min(projectStartDate(groupedData)[i])
     });
   }
-  console.log("Project Summary: ", projectSummary)
+  console.log('project summary data', projectSummary)
+
+  //console.log("Project Summary: ", projectSummary)
   return projectSummary
 }
