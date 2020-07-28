@@ -31,6 +31,7 @@ import isDataEmpty from './isDataEmpty';
 import timeDuration from './timeDuration'
 import slipRate from './slipRate'
 import min from 'lodash/min'
+import max from 'lodash/max'
 
 
 // import countSuccesses from './countSuccesses'
@@ -215,14 +216,48 @@ function App() {
 
   // var data[0].timelines_title = (typeof x === 'undefined') ? your_default_value : x;
   // {data[0].timelines_title}
-  console.log('timeDuration', timeDuration(data[0].start_date, data[0].projected_date))
-  console.log('slipRate in days', slipRate(data[0].commit_date, data[0].projected_date, data[0].complete))
-  console.log('slipRate', Math.round(slipRate(data[0].commit_date, data[0].projected_date, data[0].complete)/timeDuration(data[0].start_date, data[0].projected_date)*100) +'%')
+  // console.log('timeDuration', timeDuration(data[0].start_date, data[0].projected_date))
+  // console.log('slipRate in days', slipRate(data[0].commit_date, data[0].projected_date, data[0].complete))
+  // console.log('slipRate', Math.round(slipRate(data[0].commit_date, data[0].projected_date, data[0].complete)/timeDuration(data[0].start_date, data[0].projected_date)*100) +'%')
 
-  const arrayOfDates = min(['4/25/2020', '5/21/2020','3/1/2020'])
-  // var maxDate=new Date(Math.max.apply(null,arrayOfDates));
+  // const arrayOfDates = ["5/30/2019", '9/30/2019', "11/29/2019"]
+  // let maxDate = max(arrayOfDates)
+  // console.log('get time0:', new Date(arrayOfDates[0]).getTime())
+  // console.log('get time1:', new Date(arrayOfDates[1]).getTime())
+  // console.log('get time2:', new Date(arrayOfDates[2]).getTime())
 
-  console.log('minDate:', arrayOfDates)
+  // // var maxDate=new Date(Math.max.apply(null,arrayOfDates));
+  // console.log('array of dates:', arrayOfDates)
+  // console.log('max date:', maxDate)
+  // console.log('math min date:', min([1559196000000, 1572415200000, 1575010800000]))
+
+  // console.log('time duration:', timeDuration(projectSummary(groupedDataObject(data)).start_date, projectSummary(groupedDataObject(data)).commit_completion_date))
+  // console.log('length summary data:', projectSummary(groupedDataObject(data)).length)
+  let slipRatePerctgArray = [];
+
+  for(let i=0; i < projectSummary(groupedDataObject(data)).length; i++) {
+    let slipRateDays = slipRate(
+      projectSummary(groupedDataObject(data))[i].commit_completion_date, 
+      projectSummary(groupedDataObject(data))[i].projected_completion_date, 
+      'Y'
+      )
+    let totalProjectDays = timeDuration(
+      projectSummary(groupedDataObject(data))[i].project_start_date, 
+      projectSummary(groupedDataObject(data))[i].commit_completion_date
+      )
+    let slipRatePercentage = (slipRateDays/totalProjectDays)*100
+      
+    slipRatePerctgArray.push(slipRatePercentage)
+        // return slipRatePercentage
+    console.log('slipRate:', slipRate(projectSummary(groupedDataObject(data))[i].commit_completion_date, projectSummary(groupedDataObject(data))[i].projected_completion_date, 'Y'))
+    console.log('time duration:', timeDuration(projectSummary(groupedDataObject(data))[i].project_start_date, projectSummary(groupedDataObject(data))[i].commit_completion_date))
+    console.log('slipRatePrctgArray:', slipRatePerctgArray)
+    console.log('avg project slip rate:', getAverage(slipRatePerctgArray)+'%')
+
+    // console.log('slipRatePercentage', slipRatePercentage)
+
+  }
+  // console.log('slipRatePercentage', slipRatePercentage)
 
   // console.log('slipRate', slipRate(new Date(data[0].commit_date), new Date(data[0].projected_date))/timeDuration(new Date(data[0].start_date), new Date(data[0].projected_date))*100)
   return (
@@ -283,7 +318,7 @@ function App() {
             <Grid container justify="center" spacing={spacing}>
               <NumberCard variant='avatar' Icon={CheckCircle} value={'Projects: ' + Math.round((successCountProject/arrayCountProject)*100)+'%'} 
                   value2={'Milestones: '+ Math.round((successCount/arrayCount)*100)+'%'} title='Success Rate'></NumberCard>
-              <NumberCard variant='avatar' Icon={TrendingDown} value={'Projects: ' + '??%'} value2={'Milestones: ' + getAverage(slipRateArray)+'%'} title='Average Slip Rate'></NumberCard>
+              <NumberCard variant='avatar' Icon={TrendingDown} value={'Projects: ' + getAverage(slipRatePerctgArray)+'%'} value2={'Milestones: ' + getAverage(slipRateArray)+'%'} title='Average Slip Rate'></NumberCard>
             </Grid>
           </Grid>
         </Grid>

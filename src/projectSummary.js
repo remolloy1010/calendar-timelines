@@ -5,32 +5,48 @@ import commitCompletionDate from "./commitCompletionDate";
 import projectedCompletionDate from './projectedCompletionDate'
 // import { max } from "lodash";
 import min from 'lodash/min';
-import max from 'lodash/max'
+import max from 'lodash/max';
+import timeDuration from './timeDuration';
 
     function projectStartDate(groupedData) {
         return Object.keys(groupedData).map(key => {
             let startDateArray = [];
             groupedData[key].forEach(eachInstance => {
-                startDateArray.push(eachInstance.start_date)
+                startDateArray.push(new Date(eachInstance.start_date).getTime())
                 // console.log('startArray start_date:', eachInstance.start_date)
             });
-            // console.log('startArray:', startArray)
+            // console.log('start date array:', startDateArray)
 
             return startDateArray
         });
         
     }
 
-    function projectEndDate(groupedData) {
+    function projectCommitEndDate(groupedData) {
         return Object.keys(groupedData).map(key => {
-            let endDateArray = [];
+            let endCommitDateArray = [];
             groupedData[key].forEach(eachInstance => {
-                endDateArray.push(eachInstance.commit_date)
+                endCommitDateArray.push(new Date(eachInstance.commit_date).getTime())
                 // console.log('startArray start_date:', eachInstance.start_date)
             });
-            // console.log('startArray:', startArray)
+            // console.log('end commit array:', endCommitDateArray)
 
-            return endDateArray
+            return endCommitDateArray
+        });
+        
+    }
+
+    function projectProjectedEndDate(groupedData) {
+        return Object.keys(groupedData).map(key => {
+            let endProjectedDateArray = [];
+            groupedData[key].forEach(eachInstance => {
+                endProjectedDateArray.push(new Date(eachInstance.projected_date).getTime())
+                // console.log('startArray start_date:', eachInstance.start_date)
+            });
+            // console.log('end projected array:', endProjectedDateArray)
+            // console.log('max end projected date', min(endProjectedDateArray))
+
+            return endProjectedDateArray
         });
         
     }
@@ -104,10 +120,10 @@ export default function projectSummary(groupedData){
       num_of_milestones: numOfMilestonesPerProject(groupedData)[i],
       total_revenue: totalRevenueImpactperProject(groupedData)[i],
       priority: priorityPerProject(groupedData)[i],
-      commit_completion_date: max(projectEndDate(groupedData)[i]),
+      commit_completion_date: new Date(max(projectCommitEndDate(groupedData)[i])),
       sum_slip_rate: (getSum(avgSlipRate(groupedData)[i])),
-      projected_completion_date: projectedCompletionDate(groupedData)[i],
-      project_start_date: min(projectStartDate(groupedData)[i])
+      projected_completion_date: new Date(max(projectProjectedEndDate(groupedData)[i])),
+      project_start_date: new Date(min(projectStartDate(groupedData)[i]))
     });
   }
   console.log('project summary data', projectSummary)
