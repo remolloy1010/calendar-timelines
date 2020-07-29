@@ -233,26 +233,41 @@ function App() {
 
   // console.log('time duration:', timeDuration(projectSummary(groupedDataObject(data)).start_date, projectSummary(groupedDataObject(data)).commit_completion_date))
   // console.log('length summary data:', projectSummary(groupedDataObject(data)).length)
+
+  let completeArray1 = ['Y', 'Y', 'Y']
+  let completeArray2 = ['N', 'N', 'N']
+  let completeArray3 = ['Y', 'N', 'Y']
+  let completeArray4 = ['Y']
+
+  let ANSWER = completeArray2.every( (val, i) => val === 'Y') === true ? 'Y' : 'N'
+  console.log('ANSWER:', ANSWER)
+  console.log('isComplete?', completeArray4.every( (val, i) => val === 'Y'))
+  // completeArray1.every( (val, i) => val === 'Y')
+
   let slipRatePerctgArray = [];
 
   for(let i=0; i < projectSummary(groupedDataObject(data)).length; i++) {
+    console.log("complete?:", projectSummary(groupedDataObject(data))[i].complete)
+    // projectSummary(groupedDataObject(data))[i].complete
     let slipRateDays = slipRate(
       projectSummary(groupedDataObject(data))[i].commit_completion_date, 
       projectSummary(groupedDataObject(data))[i].projected_completion_date, 
-      'Y'
+      projectSummary(groupedDataObject(data))[i].complete, 
       )
     let totalProjectDays = timeDuration(
       projectSummary(groupedDataObject(data))[i].project_start_date, 
       projectSummary(groupedDataObject(data))[i].commit_completion_date
       )
     let slipRatePercentage = (slipRateDays/totalProjectDays)*100
-      
+    if (slipRatePercentage)  
     slipRatePerctgArray.push(slipRatePercentage)
+    let filteredSlipRatePerctgArray = slipRatePerctgArray.filter(slipRateVal => slipRateVal != isNaN)
         // return slipRatePercentage
     console.log('slipRate:', slipRate(projectSummary(groupedDataObject(data))[i].commit_completion_date, projectSummary(groupedDataObject(data))[i].projected_completion_date, 'Y'))
     console.log('time duration:', timeDuration(projectSummary(groupedDataObject(data))[i].project_start_date, projectSummary(groupedDataObject(data))[i].commit_completion_date))
     console.log('slipRatePrctgArray:', slipRatePerctgArray)
     console.log('avg project slip rate:', getAverage(slipRatePerctgArray)+'%')
+    console.log('filter:', filteredSlipRatePerctgArray)
 
     // console.log('slipRatePercentage', slipRatePercentage)
 

@@ -6,7 +6,6 @@ import projectedCompletionDate from './projectedCompletionDate'
 // import { max } from "lodash";
 import min from 'lodash/min';
 import max from 'lodash/max';
-import timeDuration from './timeDuration';
 
     function projectStartDate(groupedData) {
         return Object.keys(groupedData).map(key => {
@@ -40,7 +39,10 @@ import timeDuration from './timeDuration';
         return Object.keys(groupedData).map(key => {
             let endProjectedDateArray = [];
             groupedData[key].forEach(eachInstance => {
+                
                 endProjectedDateArray.push(new Date(eachInstance.projected_date).getTime())
+                
+
                 // console.log('startArray start_date:', eachInstance.start_date)
             });
             // console.log('end projected array:', endProjectedDateArray)
@@ -49,6 +51,21 @@ import timeDuration from './timeDuration';
             return endProjectedDateArray
         });
         
+    }
+
+    function isProjectComplete(groupedData) {
+        return Object.keys(groupedData).map(key => {
+            let isCompleteArray = [];
+            groupedData[key].forEach(eachInstance => {
+                isCompleteArray.push(eachInstance.complete)
+                // console.log("complete", eachInstance.complete)
+                // console.log('startArray start_date:', eachInstance.start_date)
+            });
+            // console.log('end projected array:', endProjectedDateArray)
+            // console.log('max end projected date', min(endProjectedDateArray))
+
+            return isCompleteArray
+        });
     }
 
     function totalRevenueImpactperProject(groupedData) {
@@ -123,7 +140,8 @@ export default function projectSummary(groupedData){
       commit_completion_date: new Date(max(projectCommitEndDate(groupedData)[i])),
       sum_slip_rate: (getSum(avgSlipRate(groupedData)[i])),
       projected_completion_date: new Date(max(projectProjectedEndDate(groupedData)[i])),
-      project_start_date: new Date(min(projectStartDate(groupedData)[i]))
+      project_start_date: new Date(min(projectStartDate(groupedData)[i])),
+      complete: isProjectComplete(groupedData)[i].every( (val, i) => val === 'Y') === true ? 'Y' : 'N'
     });
   }
   console.log('project summary data', projectSummary)
