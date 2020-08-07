@@ -80,15 +80,18 @@ const oneYearLater = moment().endOf('month').add(1, 'years');
 
 
 
-function projectedDateColor(projectedDate, targetDate, commitDate) {
+function outlineColor(complete, projectedDate, targetDate, commitDate) {
   const totalDateLength = commitDate.getTime() - targetDate.getTime()
   const dateToCommitment = (projectedDate.getTime() - targetDate.getTime())/totalDateLength
   
   if (dateToCommitment <= 0.50) {
     return 'green'
   }
-  else if(dateToCommitment <= 1.00) {
+  else if(dateToCommitment <= 1.00 && complete === 'N') {
     return'yellow'
+  }
+  else if(dateToCommitment <= 1.00 && complete === 'Y') {
+    return'green'
   }
   else if (dateToCommitment > 1.00) {
     return 'red'
@@ -98,8 +101,32 @@ function projectedDateColor(projectedDate, targetDate, commitDate) {
   }
 }
 
-function isProjectComplete(completeYorN, projectedDate, targetDate, commitDate) {
-  return (completeYorN === 'Y' ? projectedDateColor(projectedDate, targetDate, commitDate) : '#bdbdbd' )
+function solidCompletionColor(complete, projectedDate, targetDate, commitDate) {
+  // return (completeYorN === 'Y' && dateToCommitment <= 1.00 ? projectedDateColor(projectedDate, targetDate, commitDate) : '#bdbdbd' )
+
+  if(outlineColor(complete, projectedDate, targetDate, commitDate) === 'green'){
+    return 'green'
+  }
+  else if(outlineColor(complete, projectedDate, targetDate, commitDate) === 'yellow'){
+    return 'green'
+  }
+  else if(outlineColor(complete, projectedDate, targetDate, commitDate) === 'red'){
+    return 'red'
+  }
+  else{
+    return 'error'
+  }
+}
+
+function isProjectCompleteSolidColor(complete, projectedDate, targetDate, commitDate){
+  // if complete, outputs solid color based on solid color logic function
+  if(complete === 'Y'){
+    return solidCompletionColor(complete, projectedDate, targetDate, commitDate)
+  }
+  //if incomplete, outputs grey color for solid fill
+  else if(complete === 'N'){
+    return '#bdbdbd'
+  }
 }
 
 
@@ -158,8 +185,8 @@ function ProjectData({data}) {
       title: (
         <div style={{
           ...styles.customIconStyle, 
-          borderColor: projectedDateColor(new Date(data[i].projected_date), new Date(data[i].target_date), new Date(data[i].commit_date)), 
-          backgroundColor: isProjectComplete(data[i].complete, new Date(data[i].projected_date), new Date(data[i].target_date), new Date(data[i].commit_date))
+          borderColor: outlineColor(data[i].complete, new Date(data[i].projected_date), new Date(data[i].target_date), new Date(data[i].commit_date)), 
+          backgroundColor: isProjectCompleteSolidColor(data[i].complete, new Date(data[i].projected_date), new Date(data[i].target_date), new Date(data[i].commit_date))
         }}/>
       ),
       start_time: new Date(data[i].projected_date),
