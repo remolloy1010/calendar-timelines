@@ -121,7 +121,7 @@ function solidCompletionColor(complete, projectedDate, targetDate, commitDate) {
 function isProjectCompleteSolidColor(complete, projectedDate, targetDate, commitDate){
   // if complete, outputs solid color based on solid color logic function
   if(complete === 'Y'){
-    return solidCompletionColor(complete, projectedDate, targetDate, commitDate)
+    return outlineColor(complete, projectedDate, targetDate, commitDate)
   }
   //if incomplete, outputs grey color for solid fill
   else if(complete === 'N'){
