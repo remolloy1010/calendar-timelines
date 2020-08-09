@@ -206,11 +206,34 @@ function App() {
     localStorage.removeItem('data') 
   }
 
-  console.log(data)
+  console.log('show data:', data)
 
   // let title = data[0].timelines_title ? 'blank' : 'stranger'
-  
+  if(data.length === 0){
+    
+  }
+  function title(data){
+    // if(data.length){
+    //   titleName = ''
+    // }
 
+    const blah = []
+    // window.alert(blah === blah ? 'True' : 'False');
+    // window.alert([] === [] ? 'True' : 'False');
+      
+      if(!data.length){
+        return ''
+      }
+      else{
+        return data[0].timelines_title
+      }
+      
+    
+    
+  }
+    // let appTitle = (data === [] ? 'HI' : data[0].timelines_title)
+
+  // {title(data, data[0].title)}
   // return Object.is(data, undefined) ? 10 : 5;
 
 
@@ -287,7 +310,7 @@ function App() {
              {data[0].timelines_title} Project Timelines
             </Typography>} */}
             <Typography variant="h4" align="center" data={data} >
-              Integrated Safety Project Timelines
+              {title(data)} Project Timelines
             </Typography>
           </div>
     <div style={styles.paddingStyle}>
@@ -297,7 +320,7 @@ function App() {
       
       <div style={styles.headerStyleBlock}> 
         <div style={{...styles.headerStyle, marginTop: 15, width: 700, background: '#1a237e'}}> 
-          <Typography align='center' variant='h5'>Integrated Safety Portfolio Metrics</Typography> 
+          <Typography align='center' variant='h5'>{title(data)} Portfolio Metrics</Typography> 
         {/* <Grid container className={classes.root} spacing={2}> 
           <Grid item xs={12}>
             <Grid container justify="center" spacing={spacing}> */}

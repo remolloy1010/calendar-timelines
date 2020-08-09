@@ -117,13 +117,13 @@ const useStyles = makeStyles({
   }
 
 
-function Row({ rowData = {}, groupedData = {} }) {
+function Row({ index, rowData = {}, temp = {} }) {
     //const {data} = data;
     console.log('rowData', rowData)
     
     // console.log('collapsedRowData:', collapsedRowData)
-    console.log('groupedData:', groupedData)
-    const projectNames = Object.keys(groupedData)
+    console.log('groupedData:', temp)
+    const projectNames = Object.keys(temp)
     console.log('projectNames', projectNames)
 
     const [open, setOpen] = React.useState(false);
@@ -243,38 +243,25 @@ function Row({ rowData = {}, groupedData = {} }) {
                 </TableHead>
                 <TableBody>
                     
-                    {/* <TableRow>
-                        <TableCell>
-                            hi
-                        </TableCell>
-                    </TableRow> */}
-                    
-                    {Object.keys(groupedData).map((groupKey,i) => {
-                        const groups = groupedData[groupKey]
-                        // console.log("groups:",groups)
-                        // console.log('i:',i)
-                        // console.log('groupKey', groupKey)
-                        // return(groups.map(group => {
-                        //     console.log('group:', group)
-                            return(
+                    {temp.map(group => (
                               
-                                <TableRow key={groups[0].project}>
-                                    <TableCell align="center">
-                                      {milestoneComplete(groups[0].complete)}
-                                    </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        {groups[0].milestone}
-                                    </TableCell>
-                                    <TableCell align="center">{groups[0].start_date}</TableCell>
-                                    <TableCell align="center">{groups[0].projected_date}</TableCell>
-                                    <TableCell align="center">{groups[0].target_date}</TableCell>
-                                    <TableCell align="center">{groups[0].commit_date}</TableCell>
-                                    <TableCell align="center">{slipRatePerctg(slipRate(groups[0].commit_date, groups[0].projected_date, groups[0].complete),timeDuration(groups[0].start_date, groups[0].projected_date))}</TableCell>
+                          <TableRow key={group.project}>
+                              <TableCell align="center">
+                                {milestoneComplete(group.complete)}
+                              </TableCell>
+                              <TableCell component="th" scope="row">
+                                  {group.milestone}
+                              </TableCell>
+                              <TableCell align="center">{group.start_date}</TableCell>
+                              <TableCell align="center">{group.projected_date}</TableCell>
+                              <TableCell align="center">{group.target_date}</TableCell>
+                              <TableCell align="center">{group.commit_date}</TableCell>
+                              <TableCell align="center">{slipRatePerctg(slipRate(group.commit_date, group.projected_date, group.complete),timeDuration(group.start_date, group.projected_date))}</TableCell>
 
-                                </TableRow>
-                                // )})
-                                )
-                            })}
+                          </TableRow>
+                          // )})
+                          
+                    ))}
                           
                   
 
@@ -284,30 +271,11 @@ function Row({ rowData = {}, groupedData = {} }) {
           </Collapse>
         </TableCell>
       </TableRow>
-      {/* </ExpansionPanelDetails> */}
-    {/* </ExpansionPanel> */}
-    {/* </ExpansionPanel> */}
     </React.Fragment>
   );
 }
 
-// Row.propTypes = {
-//   row: PropTypes.shape({
-//     calories: PropTypes.number.isRequired,
-//     carbs: PropTypes.number.isRequired,
-//     fat: PropTypes.number.isRequired,
-//     history: PropTypes.arrayOf(
-//       PropTypes.shape({
-//         amount: PropTypes.number.isRequired,
-//         customerId: PropTypes.string.isRequired,
-//         date: PropTypes.string.isRequired,
-//       }),
-//     ).isRequired,
-//     name: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     protein: PropTypes.number.isRequired,
-//   }).isRequired,
-// };
+
 
 
 export default function CollapsibleTable({projectSummary, groupedData}) {
@@ -315,52 +283,8 @@ export default function CollapsibleTable({projectSummary, groupedData}) {
     console.log('groupedData:', groupedData)
     
     console.log('project summary:', projectSummary)
-    // console.log("data:", data)
-    // //Group Data based on Project Name
     
-    // var groupedData = _.groupBy(data,'project');
-    // console.log('grouped data:', groupedData)
 
-    // function totalRevenueImpactperProject(groupedData) {
-    //   return Object.keys(groupedData).map(key => {
-    //     let total = 0;
-    //     groupedData[key].forEach(eachInstance => {
-    //         total = total + eachInstance.revenue 
-    //     });
-        
-    //     return total
-    //   });
-
-    // }
-    // function numOfMilestonesPerProject(groupedData) {
-    //     return Object.keys(groupedData).map(key => {
-    //       let total = 0;
-    //       groupedData[key].forEach(eachInstance => {
-    //           total = total + 1 
-    //       });
-          
-    //       return total
-    //     });
-  
-    //   }
-    // function groupedDataArray(groupedData) {
-    //     return Object.keys(groupedData).map(key => {
-    //       let groupedDataArray = [];
-    //       groupedData[key].forEach(eachInstance => {
-    //           groupedDataArray = groupedDataArray + eachInstance.revenue 
-    //       });
-          
-    //       return groupedDataArray
-    //     });
-  
-    //   }
-
-    //   const groupedData_projects = Object.keys(groupedData)
-       
-    // console.log('Total Revenue per Project Array:', totalRevenueImpactperProject(groupedData))
-    // console.log('Number of Milestones per Project:', numOfMilestonesPerProject(groupedData))
-    // console.log('groupedDataArray:',groupedDataArray(groupedData))
-    // console.log('object keys:', groupedData_projects)
     return (
       <div style={{...styles.expansionPanelText}}>
       <ExpansionPanel classes={{ root: classes.root }} >
@@ -398,31 +322,13 @@ export default function CollapsibleTable({projectSummary, groupedData}) {
                   <Typography variant='subtitle1'>Total Revenue Impact ($M)</Typography>
                 </MuiThemeProvider>
              </StyledTableCell>
-             {/* <StyledTableCell align="center">Target Date</StyledTableCell>
-             <StyledTableCell align="center">Commit Date</StyledTableCell>
-             <StyledTableCell align="center">Projected Date</StyledTableCell>
-             <StyledTableCell align="center">Slip Rate (days)</StyledTableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {projectSummary && projectSummary.map((element) => (
-              <Row key={element.priority} rowData={element} groupedData={groupedData}/>
-            ))}
-            {/* {groupedData && groupedData.map((element) => (
-              <Row key={element.priority} collapsedRowData={element} />
-            ))} */}
-            {/* <Row groupedData={groupedData}/> */}
+            {projectSummary && projectSummary.map((element, i) => (
+              <Row key={element.priority} rowData={element} temp={groupedData[Object.keys(groupedData)[i]]}/>
+            ))}          
           </TableBody>
-
-        {/* projectSummary = [{..},{..},...]
-        where projectSummary is an array
-        {..} are objects or elements within an array
-        and each object has properties such as "title", etc. */}
-          {/* {data.map((data) => (
-            <StyledTableRow key={data.priority}>
-              <StyledTableCell component="th" scope="row">
-                {data.priority}
-              </StyledTableCell> */}
         </Table>
       </TableContainer>
       </ExpansionPanelDetails>

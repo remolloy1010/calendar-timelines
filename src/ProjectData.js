@@ -101,23 +101,6 @@ function outlineColor(complete, projectedDate, targetDate, commitDate) {
   }
 }
 
-function solidCompletionColor(complete, projectedDate, targetDate, commitDate) {
-  // return (completeYorN === 'Y' && dateToCommitment <= 1.00 ? projectedDateColor(projectedDate, targetDate, commitDate) : '#bdbdbd' )
-
-  if(outlineColor(complete, projectedDate, targetDate, commitDate) === 'green'){
-    return 'green'
-  }
-  else if(outlineColor(complete, projectedDate, targetDate, commitDate) === 'yellow'){
-    return 'green'
-  }
-  else if(outlineColor(complete, projectedDate, targetDate, commitDate) === 'red'){
-    return 'red'
-  }
-  else{
-    return 'error'
-  }
-}
-
 function isProjectCompleteSolidColor(complete, projectedDate, targetDate, commitDate){
   // if complete, outputs solid color based on solid color logic function
   if(complete === 'Y'){
