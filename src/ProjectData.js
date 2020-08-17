@@ -102,11 +102,9 @@ function outlineColor(complete, projectedDate, targetDate, commitDate) {
 }
 
 function isProjectCompleteSolidColor(complete, projectedDate, targetDate, commitDate){
-  // if complete, outputs solid color based on solid color logic function
   if(complete === 'Y'){
     return outlineColor(complete, projectedDate, targetDate, commitDate)
   }
-  //if incomplete, outputs grey color for solid fill
   else if(complete === 'N'){
     return '#bdbdbd'
   }
@@ -129,12 +127,8 @@ function ProjectData({data}) {
     }
     
     groups.push({
-      //id: `${i + 1}`,
       id: i + 1, 
-      //title: Project_or_Milestone(data[i].project, data[i].milestone),
-      // style: {
-      //   marginLeft: '10px'
-      // },
+
       title: data[i].project + ' (' + data[i].milestone + ')',
       stackItems: true,
       rightTitle: data[i].comments
@@ -185,7 +179,6 @@ function ProjectData({data}) {
   }
 
   
-  //console.log('tree data', treeData)
   var groupedData = _.groupBy(data,'project');
   console.log('grouped data:', groupedData)
   console.log('data', data)
@@ -193,7 +186,6 @@ function ProjectData({data}) {
   console.log('items', items)
 
   const today = Date.now()
-  //date={today}
   
     return(
       <>
@@ -213,26 +205,13 @@ function ProjectData({data}) {
         <TodayMarker interval={2000} />
         <TodayMarker date={today}>
           {({ styles: localStyles }) =>
-            // date is value of current date. Use this to render special styles for the marker
-            // or any other custom logic based on date:
-            // e.g. styles = {...styles, backgroundColor: isDateInAfternoon(date) ? 'red' : 'limegreen'}
+
             <div style={{...localStyles, ...styles.todayMarkerStyle}} />
           }
         </TodayMarker>
       
         <TimelineHeaders>
-          {/* <SidebarHeader>
-            {({ getRootProps }) => {
-              return <div style={styles.sidebarStyles} {...getRootProps()}>
-                <Typography variant="subtitle2" align="left" >
-                  Projects
-                </Typography>
-                <Typography variant="subtitle2" align="right" colorTextPrimary='white'>
-                  Milestones
-                </Typography>
-              </div>
-            }}
-          </SidebarHeader> */}
+          
           <SidebarHeader>
             {({ getRootProps }) => {
               return <div style={styles.leftSidebarStyles}>
@@ -243,14 +222,7 @@ function ProjectData({data}) {
             }}
           </SidebarHeader>
           
-          {/* <SidebarHeader variant="right" headerData={{someData: 'extra'}}>
-            {({ getRootProps, data }) => {
-              return <div style={styles.rightSidebarStyles}>
-                <Typography variant="subtitle1" align="center" >
-                  Comments {data.someData}
-                </Typography></div>
-            }}
-          </SidebarHeader> */}
+        
           <SidebarHeader variant="right" >
             {({ getRootProps, data }) => {
               return <div style={styles.rightSidebarStyles}>

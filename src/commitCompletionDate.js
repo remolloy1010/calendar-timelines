@@ -1,5 +1,4 @@
 export default function commitCompletionDate(groupedData) {
-    //function projectCommitDate(groupedData) {
         return Object.keys(groupedData).map(key => {
             let priorityArray = [];
             groupedData[key].forEach(eachInstance => {
@@ -8,5 +7,4 @@ export default function commitCompletionDate(groupedData) {
             
             return priorityArray
         }); 
-    //}
 }

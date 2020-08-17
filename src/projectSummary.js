@@ -3,7 +3,6 @@ import slipRate from './slipRate'
 import getSum from './getSum'
 import commitCompletionDate from "./commitCompletionDate";
 import projectedCompletionDate from './projectedCompletionDate'
-// import { max } from "lodash";
 import min from 'lodash/min';
 import max from 'lodash/max';
 
@@ -12,9 +11,7 @@ import max from 'lodash/max';
             let startDateArray = [];
             groupedData[key].forEach(eachInstance => {
                 startDateArray.push(new Date(eachInstance.start_date).getTime())
-                // console.log('startArray start_date:', eachInstance.start_date)
             });
-            // console.log('start date array:', startDateArray)
 
             return startDateArray
         });
@@ -26,9 +23,7 @@ import max from 'lodash/max';
             let endCommitDateArray = [];
             groupedData[key].forEach(eachInstance => {
                 endCommitDateArray.push(new Date(eachInstance.commit_date).getTime())
-                // console.log('startArray start_date:', eachInstance.start_date)
             });
-            // console.log('end commit array:', endCommitDateArray)
 
             return endCommitDateArray
         });
@@ -43,11 +38,8 @@ import max from 'lodash/max';
                 endProjectedDateArray.push(new Date(eachInstance.projected_date).getTime())
                 
 
-                // console.log('startArray start_date:', eachInstance.start_date)
             });
-            // console.log('end projected array:', endProjectedDateArray)
-            // console.log('max end projected date', min(endProjectedDateArray))
-
+            
             return endProjectedDateArray
         });
         
@@ -58,11 +50,9 @@ import max from 'lodash/max';
             let isCompleteArray = [];
             groupedData[key].forEach(eachInstance => {
                 isCompleteArray.push(eachInstance.complete)
-                // console.log("complete", eachInstance.complete)
-                // console.log('startArray start_date:', eachInstance.start_date)
+                
             });
-            // console.log('end projected array:', endProjectedDateArray)
-            // console.log('max end projected date', min(endProjectedDateArray))
+            
 
             return isCompleteArray
         });
@@ -118,7 +108,6 @@ import max from 'lodash/max';
             let slipRateArray = [];
             groupedData[key].forEach(eachInstance => {
                 slipRateArray.push(slipRate(new Date(eachInstance.commit_date), new Date(eachInstance.projected_date), eachInstance.complete))
-                //console.log('slipRateArray:', slipRateArray)
             });
             
             return slipRateArray
@@ -146,6 +135,5 @@ export default function projectSummary(groupedData){
   }
   console.log('project summary data', projectSummary)
 
-  //console.log("Project Summary: ", projectSummary)
   return projectSummary
 }

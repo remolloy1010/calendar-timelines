@@ -1,4 +1,3 @@
-//import fullData from './GroupedData'
 import React from 'react';
 import _ from 'lodash'
 

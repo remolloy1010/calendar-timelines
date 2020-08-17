@@ -1,4 +1,3 @@
-// Find average of array; Skip items that are not a number
 export default function getAverage(arrayToAverage) {
     let total = 0;
     let count = 0;

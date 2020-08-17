@@ -1,9 +1,9 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { Card, CardContent, Avatar, Typography } from '@material-ui/core';
+import { Avatar, Typography } from '@material-ui/core';
 // import Theme from '../theme/types';
 import clsx from 'clsx';
-import { deepPurple, blueGrey, blue, green, orange, indigo } from '@material-ui/core/colors';
+import { deepPurple, blue, green, orange, indigo } from '@material-ui/core/colors';
 import CardWidget from './CardWidget';
 
 const useStyles = makeStyles(() => createStyles({
@@ -52,16 +52,10 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-// interface Props {
-//   variant: 'primary' | 'active' | 'warning' | 'success';
-//   Icon: any;
-//   value: string | number;
-//   title: string;
-// };
+
 
 export default function NumberCard ({ Icon, value, value2, title, variant }) {
   const classes = useStyles();
-  // @ts-ignore
   const avatarColor = classes[`${variant}Avatar`];
   return (
     <CardWidget classes={{ root: classes.card, content: classes.content}} >

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -15,16 +14,13 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import _ from 'lodash';
-import GroupedData from './GroupedData'
 import slipRate from './slipRate'
 import { ExpansionPanel } from '@material-ui/core';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { CheckCircle } from 'react-feather';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import timeDuration from './timeDuration'
 import slipRatePerctg from './slipRatePerctg'
 
@@ -55,13 +51,7 @@ const StyledTableCell = withStyles((theme) => ({
     }
   }))(TableCell);
   
-  const StyledTableRow = withStyles((theme) => ({
-    root: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover
-      },
-    },
-  }))(TableRow);
+  
 
 const useRowStyles = makeStyles({
   root: {
@@ -73,11 +63,7 @@ const useRowStyles = makeStyles({
 
 const useStyles = makeStyles({
     table: {
-      //minWidth: 500,
-      // marginTop: 20,
-      // marginBottom: 20,
-      // marginLeft: 20,
-      // marginRight: 20,
+
       backgroundColor: '#1a237e',
 
     },
@@ -118,10 +104,8 @@ const useStyles = makeStyles({
 
 
 function Row({ index, rowData = {}, temp = {} }) {
-    //const {data} = data;
     console.log('rowData', rowData)
     
-    // console.log('collapsedRowData:', collapsedRowData)
     console.log('groupedData:', temp)
     const projectNames = Object.keys(temp)
     console.log('projectNames', projectNames)
@@ -129,10 +113,7 @@ function Row({ index, rowData = {}, temp = {} }) {
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
 
-    // function slipRate(commitDate, projectedDate) {
-    //     const slipRateDays = projectedDate.getTime() - commitDate.getTime()
-    //     return Math.round(slipRateDays/1000/60/60/24)
-    //     }
+
     function milestoneComplete(complete) {
       if(complete === 'Y'){
         return <CheckBoxIcon style={styles.completeIcon}> </CheckBoxIcon>
@@ -141,16 +122,10 @@ function Row({ index, rowData = {}, temp = {} }) {
         return ''
       }
     }
-    // {if(groups[0].complete === 'Y') ? <CheckBoxIcon style={styles.completeIcon}> </CheckBoxIcon> : 'empty'}
 
   return (
     <React.Fragment>
-      {/* <ExpansionPanel classes={{ root: classes.root }} > */}
-      {/* <ExpansionPanel>  */}
-      {/* <ExpansionPanelSummary expandIcon={<ExpandMoreIcon classes={{ root: classes.button}}/>}>
-        <Typography className={classes.heading, classes.root} >Data Table</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails classes = {{ root: classes.detailsRoot}}> */}
+
       <TableRow className={classes.root}>
         <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
@@ -180,10 +155,7 @@ function Row({ index, rowData = {}, temp = {} }) {
             <Typography variant='body2'>${rowData.total_revenue}</Typography>
           </MuiThemeProvider>
         </TableCell>
-        {/* <TableCell align="center">{data.target_date}</TableCell>
-        <TableCell align="center">{data.commit_date}</TableCell>
-        <TableCell align="center">{data.projected_date}</TableCell>
-        <TableCell align="center">{slipRate(new Date(data.commit_date), new Date(data.projected_date))}</TableCell> */}
+        
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -235,7 +207,6 @@ function Row({ index, rowData = {}, temp = {} }) {
                         <Typography variant='body2'>Slip Rate</Typography>
                       </MuiThemeProvider>                    
                     </TableCell>
-                    {/* <TableCell align="center">Slip Rate (%)</TableCell> */}
 
 
 
@@ -259,7 +230,7 @@ function Row({ index, rowData = {}, temp = {} }) {
                               <TableCell align="center">{slipRatePerctg(slipRate(group.commit_date, group.projected_date, group.complete),timeDuration(group.start_date, group.projected_date))}</TableCell>
 
                           </TableRow>
-                          // )})
+
                           
                     ))}
                           

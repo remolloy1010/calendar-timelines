@@ -75,14 +75,6 @@ const useStyles = makeStyles({
 
 export default function DataTable({data}) {
   const classes = useStyles();
-  
-  // function slipRate(commitDate, projectedDate) {
-  //   const slipRateDays = projectedDate.getTime() - commitDate.getTime()
-  //   return Math.round(slipRateDays/1000/60/60/24)
-  //   }
-  
-    //console.log("commit date", data[1].commit_date)
-    //console.log("Slip Rate: ", slipRate(new Date(data[1].commit_date), new Date(data[1].projected_date)))
 
   return (
     <>

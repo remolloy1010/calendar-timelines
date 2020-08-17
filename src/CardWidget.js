@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { Card, CardContent, Avatar, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography } from '@material-ui/core';
 import clsx from 'clsx'
 
 
