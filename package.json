@@ -19,7 +19,8 @@
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
     "react-scripts": "3.4.1",
-    "react-simple-tree-menu": "^1.1.17"
+    "react-simple-tree-menu": "^1.1.17",
+    "use-state-api-hooks": "^2.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,7 +28,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy"
-
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -11057,6 +11057,11 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
+use-state-api-hooks@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/use-state-api-hooks/-/use-state-api-hooks-2.0.2.tgz#1c305725402d0f8ad961acf846e35af306c5a0e7"
+  integrity sha512-P1NXSPSJ3ptC0PT0Frf6e0uFCpC9Wf5A9PUMSeuaOL4uZVKvvrqDJ/16K9D+c+TE52rJDj3dv5/p0UTAKxo2VQ==
+
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"

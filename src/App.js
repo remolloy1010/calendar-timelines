@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import GroupedData from './GroupedData'
 import NumberCard from './NumberCard';
-import { DollarSign, CheckCircle, TrendingDown, Clipboard, Settings } from 'react-feather';
+import { DollarSign, CheckCircle, TrendingDown, Clipboard } from 'react-feather';
 import Grid from '@material-ui/core/Grid'
 import projectSummary from './projectSummary';
 import groupedDataObject from './groupedDataObject'
@@ -14,6 +14,8 @@ import getAverage from './getAverage';
 import timeDuration from './timeDuration'
 import slipRate from './slipRate';
 import SettingsIcon from '@material-ui/icons/Settings';
+import { Menu, MenuItem } from '@material-ui/core';
+import Settings from './Settings';
 
 
 
@@ -158,7 +160,11 @@ function App() {
   }
 
 
-  
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   function handleDataUpload(data) {
 
     setData(data) 
@@ -170,6 +176,13 @@ function App() {
     setData([]) 
     localStorage.removeItem('data') 
   }
+
+  function handleClick() {
+    alert('Hello!');
+  }
+  
+
+
 
   console.log('show data:', data)
 
@@ -210,7 +223,7 @@ function App() {
     let slipRatePercentage = (slipRateDays/totalProjectDays)*100
     if (slipRatePercentage)  
     slipRatePerctgArray.push(slipRatePercentage)
-    let filteredSlipRatePerctgArray = slipRatePerctgArray.filter(slipRateVal => slipRateVal != isNaN)
+    let filteredSlipRatePerctgArray = slipRatePerctgArray.filter(slipRateVal => slipRateVal !== isNaN)
     console.log('slipRate:', slipRate(projectSummary(groupedDataObject(data))[i].commit_completion_date, projectSummary(groupedDataObject(data))[i].projected_completion_date, 'Y'))
     console.log('time duration:', timeDuration(projectSummary(groupedDataObject(data))[i].project_start_date, projectSummary(groupedDataObject(data))[i].commit_completion_date))
     console.log('slipRatePrctgArray:', slipRatePerctgArray)
@@ -234,8 +247,8 @@ function App() {
     <div style={styles.paddingStyle}>
       <DataImporter onDataUpload={handleDataUpload}/>
       <button onClick={clearData}> Clear Data</button>
-      <div style={styles.settingsIcon}><SettingsIcon /></div>
-    </div> 
+      <div><Settings> </Settings></div>
+          </div> 
     
       <ProjectData data={data}/>
       
