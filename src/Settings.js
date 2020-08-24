@@ -17,7 +17,13 @@ const styles = {
     },
     settingsIcon: {
         fill: 'white'
-      }
+      },
+    paddingStyles : {
+      marginTop: 10,
+      marginBottom: 10,
+      marginLeft: 10,
+      marginRight: 10,
+    }
 }
 
 
@@ -38,7 +44,7 @@ export default function Settings() {
         open={Boolean(anchorEl)}
         onClose={clearAnchorEl}
       >
-        <MenuItem onClick={clearAnchorEl}><FormControl component="fieldset">
+        <FormControl component="fieldset" style={styles.paddingStyles}>
           <FormGroup aria-label="position" row>
             <FormControlLabel
               value="# of Projects"
@@ -48,8 +54,8 @@ export default function Settings() {
             />
             </FormGroup>
           </FormControl>
-        </MenuItem>
-        <MenuItem onClick={clearAnchorEl}><FormControl component="fieldset">
+        
+        <FormControl component="fieldset" style={styles.paddingStyles}>
           <FormGroup aria-label="position" row>
             <FormControlLabel
               value="rev"
@@ -59,8 +65,7 @@ export default function Settings() {
             />
             </FormGroup>
           </FormControl>
-        </MenuItem>
-        <MenuItem onClick={clearAnchorEl}><FormControl component="fieldset">
+        <FormControl component="fieldset" style={styles.paddingStyles}>
           <FormGroup aria-label="position" row>
             <FormControlLabel
               value="success"
@@ -70,8 +75,7 @@ export default function Settings() {
             />
             </FormGroup>
           </FormControl>
-        </MenuItem>
-        <MenuItem onClick={clearAnchorEl}><FormControl component="fieldset">
+       <FormControl component="fieldset" style={styles.paddingStyles}>
           <FormGroup aria-label="position" row>
             <FormControlLabel
               value="slip"
@@ -81,7 +85,6 @@ export default function Settings() {
             />
             </FormGroup>
           </FormControl>
-        </MenuItem>
 
       </Menu>
         </div>
