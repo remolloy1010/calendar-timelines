@@ -27,12 +27,16 @@ const styles = {
 }
 
 
-export default function Settings() {
+export default function Settings({show, setShow}) {
     const { anchorEl, setAnchorEl, clearAnchorEl } = useAnchorElStateApi(null);
-    const [checked, setChecked] = React.useState(false);
 
-    const toggleChecked = () => {
-      setChecked((prev) => !prev);
+    
+
+    const handleCheck = (name) => (_, checked) => {
+      setShow({
+        ...show,
+        [name]: checked
+      });
     };
 
     return( 
@@ -44,48 +48,54 @@ export default function Settings() {
         open={Boolean(anchorEl)}
         onClose={clearAnchorEl}
       >
+      <MenuItem>
         <FormControl component="fieldset" style={styles.paddingStyles}>
           <FormGroup aria-label="position" row>
             <FormControlLabel
               value="# of Projects"
-              control={<Switch color="primary" checked={checked} onChange={toggleChecked} />} 
+              control={<Switch color="primary" checked={show.projects} onChange={handleCheck('projects')} />} 
               label="# of Projects"
               labelPlacement="end"
             />
             </FormGroup>
           </FormControl>
-        
+      </MenuItem>
+      <MenuItem>
         <FormControl component="fieldset" style={styles.paddingStyles}>
           <FormGroup aria-label="position" row>
             <FormControlLabel
               value="rev"
-              control={<Switch color="primary" />}
+              control={<Switch color="primary" checked={show.revenue} onChange={handleCheck('revenue')} />}
               label="Avg Monthly Revenue Impact"
               labelPlacement="end"
             />
             </FormGroup>
           </FormControl>
+        </MenuItem>
+        <MenuItem>
         <FormControl component="fieldset" style={styles.paddingStyles}>
           <FormGroup aria-label="position" row>
             <FormControlLabel
               value="success"
-              control={<Switch color="primary" />}
+              control={<Switch color="primary" checked={show.successRate} onChange={handleCheck('successRate')} />}
               label="Success Rate"
               labelPlacement="end"
             />
             </FormGroup>
           </FormControl>
+        </MenuItem>
+        <MenuItem>
        <FormControl component="fieldset" style={styles.paddingStyles}>
           <FormGroup aria-label="position" row>
             <FormControlLabel
               value="slip"
-              control={<Switch color="primary" />}
+              control={<Switch color="primary" checked={show.slipRate} onChange={handleCheck('slipRate')} />}
               label="Avg Slip Rate"
               labelPlacement="end"
             />
             </FormGroup>
           </FormControl>
-
+        </MenuItem>
       </Menu>
         </div>
     )
