@@ -96,6 +96,18 @@ export default function Settings({show, setShow}) {
             </FormGroup>
           </FormControl>
         </MenuItem>
+        <MenuItem>
+       <FormControl component="fieldset" style={styles.paddingStyles}>
+          <FormGroup aria-label="position" row>
+            <FormControlLabel
+              value="fiscalYear"
+              control={<Switch color="primary" checked={show.fiscalYear} onChange={handleCheck('fiscalYear')} />}
+              label="# of Completed Projects Per Year"
+              labelPlacement="end"
+            />
+            </FormGroup>
+          </FormControl>
+        </MenuItem>
       </Menu>
         </div>
     )

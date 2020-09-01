@@ -54,7 +54,7 @@ const useStyles = makeStyles(() => createStyles({
 
 
 
-export default function NumberCard ({ Icon, value, value2, title, variant }) {
+export default function NumberCard ({ Icon, value, value2, value3, title, variant }) {
   const classes = useStyles();
   const avatarColor = classes[`${variant}Avatar`];
   return (
@@ -71,6 +71,9 @@ export default function NumberCard ({ Icon, value, value2, title, variant }) {
         </Typography>
         {value2 && <Typography variant='h5' >
           {value2}
+        </Typography>}
+        {value3 && <Typography variant='h5' >
+          {value3}
         </Typography>}
         
       </div>
