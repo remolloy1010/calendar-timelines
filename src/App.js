@@ -307,6 +307,9 @@ console.log('fiscalYearDict: ', fiscalYearDict)
     );
     console.log("filter:", filteredSlipRatePerctgArray);
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  console.log('groupedDataObject: ', groupedDataObject(data)[projectSummary(groupedDataObject(data))[0].project_name])
+  ////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div>
@@ -326,7 +329,7 @@ console.log('fiscalYearDict: ', fiscalYearDict)
         </div>
       </div>
 
-      <ProjectData data={data} />
+      <ProjectData data={data} projectSummary={projectSummary} groupedDataObject={groupedDataObject} />
 
       <div style={styles.headerStyleBlock}>
         <div
