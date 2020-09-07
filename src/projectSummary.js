@@ -128,7 +128,6 @@ function findFiscalYear(projectSummaryCompletionDate){
   
 
   return fiscalYear
-  console.log('fiscal year:', fiscalYear)
 
 }
 
@@ -158,7 +157,7 @@ export default function projectSummary(groupedData) {
       
     });
   }
-  console.log("project summary data", projectSummary);
+  // console.log("project summary data", projectSummary);
   // console.log(findFiscalYear(new Date(max(projectProjectedEndDate(groupedData)[0]))))
   
 

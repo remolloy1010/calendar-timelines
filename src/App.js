@@ -102,9 +102,11 @@ function App() {
 
   let completionYearArray = []
   for (let i = 0; i < projectSummary(groupedDataObject(data)).length; i++){
+    if(projectSummary(groupedDataObject(data))[i].complete === 'Y'){
     completionYearArray.push(
         findFiscalYear(projectSummary(groupedDataObject(data))[i].projected_completion_date)
     )
+  }
 }
 
 let uniqueFiscalYears = Array.from(new Set(completionYearArray))

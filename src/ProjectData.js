@@ -76,8 +76,7 @@ const styles = {
 
 const today = Date.now()
 const startOfMonth = moment().startOf('month')
-const oneYearLater = moment().endOf('month').add(1, 'years');     
-
+const oneYearLater = moment().endOf('month').add(1, 'years'); 
 
 
 function outlineColor(complete, projectedDate, targetDate, commitDate) {
@@ -107,6 +106,22 @@ function isProjectCompleteSolidColor(complete, projectedDate, targetDate, commit
   }
   else if(complete === 'N'){
     return '#bdbdbd'
+  }
+}
+
+// this limits the timeline to -6 months ... +6 months
+const minTime = moment().add(-6, 'years').valueOf()
+const maxTime = moment().add(15, 'years').valueOf()
+
+function onTimeChange(visibleTimeStart, visibleTimeEnd, updateScrollCanvas) {
+  if (visibleTimeStart < minTime && visibleTimeEnd > maxTime) {
+    updateScrollCanvas(minTime, maxTime)
+  } else if (visibleTimeStart < minTime) {
+    updateScrollCanvas(minTime, minTime + (visibleTimeEnd - visibleTimeStart))
+  } else if (visibleTimeEnd > maxTime) {
+    updateScrollCanvas(maxTime - (visibleTimeEnd - visibleTimeStart), maxTime)
+  } else {
+    updateScrollCanvas(visibleTimeStart, visibleTimeEnd)
   }
 }
 
@@ -200,7 +215,7 @@ function ProjectData({data}) {
         sidebarWidth={350}
         rightSidebarWidth={525}
         rightSidebarContent={<div>HIIIII</div>}
-       
+        onTimeChange={onTimeChange}
       >
         <TodayMarker interval={2000} />
         <TodayMarker date={today}>
