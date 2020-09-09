@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => createStyles({
 
 
 
-export default function CardWidget ({ title, children, onClick, ...props }) {
+export default function CardWidget ({ title, children, ...props }) {
   const classes = useStyles();
 
   return (
-    <Card onClick={onClick} className={clsx(classes.root, classes.paddingStyle, props.classes?.root)}>
+    <Card className={clsx(classes.root, classes.paddingStyle, props.classes?.root)}>
       <CardContent className={props.classes?.content}>
         {title && <Typography variant='h6' color='textSecondary' className={classes.title}>
           {title}

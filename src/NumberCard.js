@@ -7,12 +7,7 @@ import { deepPurple, blue, green, orange, indigo } from '@material-ui/core/color
 import CardWidget from './CardWidget';
 
 const useStyles = makeStyles(() => createStyles({
-  card: {
-    // width: 100,
-    '&:hover': {
-      cursor: 'pointer',
-    }
-  },
+  
   content: {
     display: 'flex',
     alignItems: 'center',
@@ -58,7 +53,7 @@ export default function NumberCard ({ Icon, value, value2, value3, title, varian
   const classes = useStyles();
   const avatarColor = classes[`${variant}Avatar`];
   return (
-    <CardWidget classes={{ root: classes.card, content: classes.content}} >
+    <CardWidget classes={{ content: classes.content}} >
       <Avatar className={clsx(classes.avatar, avatarColor)}>
         <Icon className={classes.icon}/>
       </Avatar>
