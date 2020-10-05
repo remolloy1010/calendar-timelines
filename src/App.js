@@ -266,6 +266,7 @@ console.log('fiscalYearDict: ', fiscalYearDict)
     }
   }
 
+  console.log('project summary: ', projectSummary(groupedDataObject(data)))
   let slipRatePerctgArray = [];
 
   for (let i = 0; i < projectSummary(groupedDataObject(data)).length; i++) {
