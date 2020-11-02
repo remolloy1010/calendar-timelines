@@ -14,7 +14,7 @@ import _ from "lodash";
 // import groupedDataObject from './groupedDataObject'
 
 // Constants for styles:
-const BORDER_WIDTH = "1px";
+const BORDER_WIDTH = "2px";
 const BORDER_STYLE = "solid";
 const ICON_WIDTH = 12;
 const ICON_HEIGHT = 12;
@@ -113,95 +113,54 @@ function isProjectCompleteSolidColor(
   }
 }
 
+// ProjectData() function: iterate through # of projects, and for # of milestones in each project, show timeline of milestones on one project line
 function ProjectData({ data, projectSummary, groupedDataObject }) {
-  console.log(
-    "AAAAAAAAAAAAAA:",
-    groupedDataObject(data)[
-      projectSummary(groupedDataObject(data))[1].project_name
-    ]
-  );
+  const projectNamesList = Object.keys(groupedDataObject(data));
+  console.log('project summary:', projectSummary(groupedDataObject(data)))
   let groups = [];
-  for (let i = 0; i < data.length; i++) {
-    // function Project_or_Milestone(project, milestone) {
-    //   if (milestone !== '') {
-    //     return milestone
-    //   }
-    //   else if (milestone === '') {
-    //     return project
-    //   }
-    // }
+  let items = [];
+  for (let i = 0; i < projectNamesList.length; i++) {
 
+    // Show each unique project on one line
     groups.push({
       id: i + 1,
-
-      title: data[i].project + " (" + data[i].milestone + ")",
+      title: projectNamesList[i],
       stackItems: true,
       rightTitle: data[i].comments,
     });
-  }
+  // }
 
-  // groupedDataObject(data)[projectSummary(groupedDataObject(data))[0].project_name]
-  let items = [];
-  for (let i = 0; i < projectSummary(groupedDataObject(data)).length; i++) {
+  // let items = [];
+  for (let j = 0; j < projectSummary(groupedDataObject(data))[i].num_of_milestones; j++) {
+
+
+    
+    // Target and Commit Date Data
     items.push({
       id: items.length,
       group: i + 1,
-      style: {
-        background: "red",
-        marginLeft: 100,
-      },
+      // style: {
+      //   background: "red",
+      //   marginLeft: 100,
+      // },
       start_time: new Date(
-        groupedDataObject(data)[
-          projectSummary(groupedDataObject(data))[1].project_name
-        ].target_date
+        groupedDataObject(data)[projectNamesList[i]][j].target_date
       ),
       end_time: new Date(
-        groupedDataObject(data)[
-          projectSummary(groupedDataObject(data))[1].project_name
-        ].commit_date
+        groupedDataObject(data)[projectNamesList[i]][j].commit_date
       ),
       itemProps: {
         style: {
           background: "#bdbdbd",
           borderColor: "#bdbdbd",
           left: "50%",
+          zIndex: 0
         },
       },
     });
-    items.push({
-      id: items.length,
-      group: i + 1,
-      style: {
-        background: "red",
-        marginLeft: 100,
-      },
-      start_time: new Date(data[5].target_date),
-      end_time: new Date(data[5].commit_date),
-      itemProps: {
-        style: {
-          background: "#bdbdbd",
-          borderColor: "#bdbdbd",
-          left: "50%",
-        },
-      },
-    });
-    items.push({
-      id: items.length,
-      group: i + 1,
-      style: {
-        background: "red",
-        marginLeft: 100,
-      },
-      start_time: new Date(data[4].target_date),
-      end_time: new Date(data[4].commit_date),
-      itemProps: {
-        style: {
-          background: "#bdbdbd",
-          borderColor: "#bdbdbd",
-          left: "50%",
-        },
-      },
-    });
+
+
+    // Projected Date Data
     items.push({
       id: items.length,
       group: i + 1,
@@ -210,22 +169,22 @@ function ProjectData({ data, projectSummary, groupedDataObject }) {
           style={{
             ...styles.customIconStyle,
             borderColor: outlineColor(
-              data[i].complete,
-              new Date(data[i].projected_date),
-              new Date(data[i].target_date),
-              new Date(data[i].commit_date)
+              groupedDataObject(data)[projectNamesList[i]][j].complete,
+              new Date(groupedDataObject(data)[projectNamesList[i]][j].projected_date),
+              new Date(groupedDataObject(data)[projectNamesList[i]][j].target_date),
+              new Date(groupedDataObject(data)[projectNamesList[i]][j].commit_date)
             ),
             backgroundColor: isProjectCompleteSolidColor(
-              data[i].complete,
-              new Date(data[i].projected_date),
-              new Date(data[i].target_date),
-              new Date(data[i].commit_date)
+              groupedDataObject(data)[projectNamesList[i]][j].complete,
+              new Date(groupedDataObject(data)[projectNamesList[i]][j].projected_date),
+              new Date(groupedDataObject(data)[projectNamesList[i]][j].target_date),
+              new Date(groupedDataObject(data)[projectNamesList[i]][j].commit_date)
             ),
           }}
         />
       ),
-      start_time: new Date(data[i].projected_date),
-      end_time: new Date(data[i].projected_date),
+      start_time: new Date(groupedDataObject(data)[projectNamesList[i]][j].projected_date),
+      end_time: new Date(groupedDataObject(data)[projectNamesList[i]][j].projected_date),
       itemProps: {
         style: {
           background: "rgb(0,0,0,0)",
@@ -234,16 +193,17 @@ function ProjectData({ data, projectSummary, groupedDataObject }) {
         },
       },
     });
+
   }
 
+}
+
   var groupedData = _.groupBy(data, "project");
-  console.log("grouped data:", groupedData);
   console.log("data", data);
   console.log("groups", groups);
   console.log("items", items);
 
   const today = Date.now();
-
   return (
     <>
       <Timeline
@@ -255,7 +215,6 @@ function ProjectData({ data, projectSummary, groupedDataObject }) {
         defaultTimeEnd={oneYearLater}
         sidebarWidth={350}
         rightSidebarWidth={525}
-        rightSidebarContent={<div>HIIIII</div>}
       >
         <TodayMarker interval={2000} />
         <TodayMarker date={today}>

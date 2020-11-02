@@ -81,9 +81,7 @@ export default function GroupedData({ data }) {
 
   const projectNames = Object.keys(groupedData);
 
-  console.log("Avg Slip Rate:", avgSlipRate(groupedData));
 
-  console.log("getSum:", getSum(avgSlipRate(groupedData)[1]));
 
   let projectSummary = [];
   for (let i = 0; i < projectNames.length; i++) {
@@ -96,7 +94,6 @@ export default function GroupedData({ data }) {
       sum_slip_rate: getSum(avgSlipRate(groupedData)[i]),
     });
   }
-  console.log("Project Summary: ", projectSummary);
 
   return (
     <>

@@ -104,11 +104,8 @@ const useStyles = makeStyles({
 
 
 function Row({ index, rowData = {}, temp = {} }) {
-    console.log('rowData', rowData)
     
-    console.log('groupedData:', temp)
     const projectNames = Object.keys(temp)
-    console.log('projectNames', projectNames)
 
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
@@ -251,9 +248,7 @@ function Row({ index, rowData = {}, temp = {} }) {
 
 export default function CollapsibleTable({projectSummary, groupedData}) {
     const classes = useStyles();
-    console.log('groupedData:', groupedData)
-    
-    console.log('project summary:', projectSummary)
+
     
 
     return (

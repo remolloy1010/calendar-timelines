@@ -98,7 +98,6 @@ function App() {
   for (let i = 0; i < data.length; i++) {
     revenueArray.push(data[i].revenue);
   }
-  console.log("Revenue Array: ", revenueArray);
 
   let completionYearArray = []
   for (let i = 0; i < projectSummary(groupedDataObject(data)).length; i++){
@@ -109,9 +108,7 @@ function App() {
 
 let uniqueFiscalYears = Array.from(new Set(completionYearArray))
 uniqueFiscalYears.sort()
-console.log('completionYearArray:', completionYearArray )
 
-console.log('uniqueItems:', uniqueFiscalYears)
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -122,7 +119,6 @@ for (let i = 0; i < completionYearArray.length; i++) {
   counts[num] = counts[num] ? counts[num] + 1 : 1;
 }
 
-console.log(counts[uniqueFiscalYears[0]], counts[uniqueFiscalYears[1]]);
 ////////////////////////////////////////////////////////////////////////////
 let completedProjectsObj = {}
 for (let i = 0; i < uniqueFiscalYears.length; i++){
@@ -130,7 +126,6 @@ for (let i = 0; i < uniqueFiscalYears.length; i++){
 
 }
 
-console.log('completedProjectsObj: ', completedProjectsObj)
 ////////////////////////////////////////////////////////////////////////////
 
 
@@ -152,7 +147,6 @@ let fiscalYearDict = {};
 for (let i=0; i < projectSummary(groupedDataObject(data)).length; i++){
     fiscalYearDict[findFiscalYear(projectSummary(groupedDataObject(data))[i].projected_completion_date)] = countProjectsPerFiscalYear(findFiscalYear(projectSummary(groupedDataObject(data))[i].projected_completion_date))
 }
-console.log('fiscalYearDict: ', fiscalYearDict)   
 
 
 
@@ -200,8 +194,7 @@ console.log('fiscalYearDict: ', fiscalYearDict)
       count += 1;
     }
   }
-  console.log("slipRateArray", slipRateArray);
-  console.log("count", count);
+
 
   // Project Success Rate
   let successCountProject = 0;
@@ -267,10 +260,7 @@ console.log('fiscalYearDict: ', fiscalYearDict)
   let slipRatePerctgArray = [];
 
   for (let i = 0; i < projectSummary(groupedDataObject(data)).length; i++) {
-    console.log(
-      "complete?:",
-      projectSummary(groupedDataObject(data))[i].complete
-    );
+    
     let slipRateDays = slipRate(
       projectSummary(groupedDataObject(data))[i].commit_completion_date,
       projectSummary(groupedDataObject(data))[i].projected_completion_date,
@@ -285,30 +275,11 @@ console.log('fiscalYearDict: ', fiscalYearDict)
     let filteredSlipRatePerctgArray = slipRatePerctgArray.filter(
       (slipRateVal) => slipRateVal !== isNaN
     );
-    console.log(
-      "slipRate:",
-      slipRate(
-        projectSummary(groupedDataObject(data))[i].commit_completion_date,
-        projectSummary(groupedDataObject(data))[i].projected_completion_date,
-        "Y"
-      )
-    );
-    console.log(
-      "time duration:",
-      timeDuration(
-        projectSummary(groupedDataObject(data))[i].project_start_date,
-        projectSummary(groupedDataObject(data))[i].commit_completion_date
-      )
-    );
-    console.log("slipRatePrctgArray:", slipRatePerctgArray);
-    console.log(
-      "avg project slip rate:",
-      getAverage(slipRatePerctgArray) + "%"
-    );
-    console.log("filter:", filteredSlipRatePerctgArray);
+    
+   
+    
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////
-  console.log('groupedDataObject: ', groupedDataObject(data)[projectSummary(groupedDataObject(data))[0].project_name])
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
