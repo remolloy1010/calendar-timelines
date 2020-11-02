@@ -20,6 +20,7 @@ const ICON_WIDTH = 12;
 const ICON_HEIGHT = 12;
 const ICON_MARGIN_LEFT = -ICON_WIDTH / 2;
 const ICON_MARGIN_TOP = 3;
+const LEFT_SIDEBAR_WIDTH = 300; 
 
 const theme = createMuiTheme({
   overrides: {
@@ -55,7 +56,7 @@ const styles = {
     align: "center",
     marginTop: 20,
     color: "white",
-    width: 350,
+    width: LEFT_SIDEBAR_WIDTH,
   },
   titleStyle: {
     marginLeft: 10,
@@ -124,7 +125,7 @@ function ProjectData({ data, projectSummary, groupedDataObject }) {
     // Show each unique project on one line
     groups.push({
       id: i + 1,
-      title: projectNamesList[i],
+      title: <Typography align='center'> {projectNamesList[i]} </Typography>,
       stackItems: true,
       rightTitle: data[i].comments,
     });
@@ -213,7 +214,7 @@ function ProjectData({ data, projectSummary, groupedDataObject }) {
         maxZoom={86400000 * 365 * 3}
         defaultTimeStart={startOfMonth}
         defaultTimeEnd={oneYearLater}
-        sidebarWidth={350}
+        sidebarWidth={LEFT_SIDEBAR_WIDTH}
         rightSidebarWidth={525}
       >
         <TodayMarker interval={2000} />
@@ -229,7 +230,7 @@ function ProjectData({ data, projectSummary, groupedDataObject }) {
               return (
                 <div style={styles.leftSidebarStyles}>
                   <Typography variant="subtitle1" align="center">
-                    Projects (Milestones)
+                    Projects
                   </Typography>
                 </div>
               );
