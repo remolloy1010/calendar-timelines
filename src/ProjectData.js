@@ -75,7 +75,6 @@ const styles = {
     //marginLeft: 'calc(${ICON_WIDTH/2}px)'
     marginLeft: ICON_MARGIN_LEFT,
     marginTop: ICON_MARGIN_TOP,
-<<<<<<< HEAD
     display: 'flex',
     align: 'center'
   }
@@ -84,12 +83,6 @@ const styles = {
 const today = Date.now()
 const startOfMonth = moment().startOf('month')
 const oneYearLater = moment().endOf('month').add(1, 'years'); 
-=======
-    display: "flex",
-    align: "center",
-  },
-};
->>>>>>> calendar-section-test-branch
 
 const today = Date.now();
 const startOfMonth = moment().startOf("month");
@@ -126,7 +119,6 @@ function isProjectCompleteSolidColor(
   }
 }
 
-<<<<<<< HEAD
 // this limits the timeline to -6 months ... +6 months
 const minTime = moment().add(-6, 'years').valueOf()
 const maxTime = moment().add(15, 'years').valueOf()
@@ -143,12 +135,6 @@ function onTimeChange(visibleTimeStart, visibleTimeEnd, updateScrollCanvas) {
   }
 }
 
-=======
-// ProjectData() function: iterate through # of projects, and for # of milestones in each project, show timeline of milestones on one project line
-function ProjectData({ data, projectSummary, groupedDataObject, show, setShow }) {
-  const projectNamesList = Object.keys(groupedDataObject(data));
-  console.log('project summary:', projectSummary(groupedDataObject(data)))
->>>>>>> calendar-section-test-branch
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   // const [showStatus, setShowStatus] = React.useState({
@@ -345,11 +331,8 @@ function ProjectData({ data, projectSummary, groupedDataObject, show, setShow })
         defaultTimeEnd={oneYearLater}
         sidebarWidth={LEFT_SIDEBAR_WIDTH}
         rightSidebarWidth={525}
-<<<<<<< HEAD
         rightSidebarContent={<div>HIIIII</div>}
         onTimeChange={onTimeChange}
-=======
->>>>>>> calendar-section-test-branch
       >
         <TodayMarker interval={2000} />
         <TodayMarker date={today}>
