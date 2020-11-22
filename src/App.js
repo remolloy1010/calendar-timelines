@@ -101,12 +101,16 @@ function App() {
 
   let completionYearArray = []
   for (let i = 0; i < projectSummary(groupedDataObject(data)).length; i++){
+    // console.log(projectSummary(groupedDataObject(data)).complete[i])
+    if(projectSummary(groupedDataObject(data))[i].complete=='Y'){
     completionYearArray.push(
         findFiscalYear(projectSummary(groupedDataObject(data))[i].projected_completion_date)
     )
+    }
 }
 
 let uniqueFiscalYears = Array.from(new Set(completionYearArray))
+console.log('completionYearArray', completionYearArray)
 uniqueFiscalYears.sort()
 
 
@@ -122,6 +126,7 @@ for (let i = 0; i < completionYearArray.length; i++) {
 ////////////////////////////////////////////////////////////////////////////
 let completedProjectsObj = {}
 for (let i = 0; i < uniqueFiscalYears.length; i++){
+  console.log('uniqueFiscalYears', uniqueFiscalYears)
   completedProjectsObj[uniqueFiscalYears[i]] = counts[uniqueFiscalYears[i]]
 
 }
@@ -223,8 +228,10 @@ for (let i=0; i < projectSummary(groupedDataObject(data)).length; i++){
     revenue: true,
     successRate: true,
     slipRate: true,
-    fiscalYear: true
+    fiscalYear: true,
+    milestoneToggle: true
   });
+
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -240,11 +247,6 @@ for (let i=0; i < projectSummary(groupedDataObject(data)).length; i++){
     setData([]);
     localStorage.removeItem("data");
   }
-
-  function handleClick() {
-    alert("Hello!");
-  }
-
   console.log("show data:", data);
 
   if (data.length === 0) {
@@ -276,7 +278,7 @@ for (let i=0; i < projectSummary(groupedDataObject(data)).length; i++){
       (slipRateVal) => slipRateVal !== isNaN
     );
     
-   
+
     
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -294,13 +296,13 @@ for (let i=0; i < projectSummary(groupedDataObject(data)).length; i++){
         <DataImporter onDataUpload={handleDataUpload} />
         <button onClick={clearData}> Clear Data</button>
         <div>
-          <Settings show={showStatus} setShow={setShowStatus}>
+          <Settings show={showStatus} setShow={setShowStatus} >
             {" "}
           </Settings>
         </div>
       </div>
 
-      <ProjectData data={data} projectSummary={projectSummary} groupedDataObject={groupedDataObject} />
+      <ProjectData data={data} projectSummary={projectSummary} groupedDataObject={groupedDataObject} show={showStatus} setShow={setShowStatus}/>
 
       <div style={styles.headerStyleBlock}>
         <div
