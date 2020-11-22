@@ -121,29 +121,13 @@ function ProjectData({ data, projectSummary, groupedDataObject, show, setShow })
   console.log('project summary:', projectSummary(groupedDataObject(data)))
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // const [showStatus, setShowStatus] = React.useState({
-  //   projects: false,
-  //   revenue: false,
-  //   successRate: true,
-  //   slipRate: true,
-  //   fiscalYear: true,
-  //   milestoneToggle: true
-  // });
-  // const [showStatus2, setShowStatus2] = React.useState({
-  //   milestoneToggle: true
-  // });
-  // <div><Settings show={showStatus} setShow={setShowStatus}>{""}</Settings></div>
-  //////////////////////////////////// MASTER //////////////////////////////////
+
   
   let groups = [];
   let items = [];
   // If milestone toggle on - one milestone per line
   if (show.milestoneToggle) {
-    // console.log('milestone toggle: ', showStatus2.milestoneToggle)
-    // console.log('projects: ', showStatus2.projects)
-    // console.log('revenue: ', showStatus2.revenue)
-    // console.log('successRate: ', showStatus2.successRate)
-    // console.log('slipRate: ', showStatus2.slipRate)
+
 
     for (let i = 0; i < data.length; i++) {
       
