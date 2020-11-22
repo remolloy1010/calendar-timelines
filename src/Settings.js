@@ -30,8 +30,7 @@ const styles = {
 export default function Settings({show, setShow}) {
     const { anchorEl, setAnchorEl, clearAnchorEl } = useAnchorElStateApi(null);
 
-    
-
+    // Function handleCheck to see if menu item is checked or not
     const handleCheck = (name) => (_, checked) => {
       setShow({
         ...show,
@@ -39,6 +38,9 @@ export default function Settings({show, setShow}) {
       });
     };
 
+
+    
+    
     return( 
         <div style={styles.root}> 
         <IconButton onClick={setAnchorEl}> <SettingsIcon color='white' fill='white' styles={styles.settingsIcon} /></IconButton>
@@ -103,6 +105,18 @@ export default function Settings({show, setShow}) {
               value="fiscalYear"
               control={<Switch color="primary" checked={show.fiscalYear} onChange={handleCheck('fiscalYear')} />}
               label="# of Completed Projects Per Year"
+              labelPlacement="end"
+            />
+            </FormGroup>
+          </FormControl>
+        </MenuItem>
+        <MenuItem>
+       <FormControl component="fieldset" style={styles.paddingStyles}>
+          <FormGroup aria-label="position" row>
+            <FormControlLabel
+              value="milestoneToggle"
+              control={<Switch color="primary" checked={show.milestoneToggle} onChange={handleCheck('milestoneToggle')} />}
+              label="Toggle Milestone View"
               labelPlacement="end"
             />
             </FormGroup>

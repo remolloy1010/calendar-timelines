@@ -157,8 +157,11 @@ export default function projectSummary(groupedData) {
       
     });
   }
+<<<<<<< HEAD
   // console.log("project summary data", projectSummary);
   // console.log(findFiscalYear(new Date(max(projectProjectedEndDate(groupedData)[0]))))
+=======
+>>>>>>> calendar-section-test-branch
   
 
   return projectSummary;

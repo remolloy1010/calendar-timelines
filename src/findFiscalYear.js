@@ -1,5 +1,4 @@
 export default function findFiscalYear(projectSummaryCompletionDate){
-    let fiscalStartMonth = 10;
     let fiscalYear = 0;
     let projectCompletionMonth = new Date(projectSummaryCompletionDate).getMonth()
 
