@@ -1,0 +1,8 @@
+Timelines Title,Priority,Project,Milestone,Start Date,Projected Date,Target Date,Commit Date,Complete,Comments,Revenue
+Team Rocket,1,Project 1,Milestone 1,4/25/2019,8/30/2019,5/30/2019,8/28/2019,Y,Project completed past commit date due to supply delays,1000
+N/A,2,Project 2,Milestone 1,4/26/2019,9/11/2019,7/31/2019,9/15/2019,Y,Delays may be affected by production,500
+N/A,2,Project 2,Milestone 2,4/27/2019,12/20/2019,10/15/2019,12/28/2019,Y,,133
+N/A,2,Project 2,Milestone 3,2/28/2019,5/1/2020,3/15/2020,4/28/2020,Y,,444
+N/A,3,Project 3,Milestone 1,4/29/2019,9/12/2020,9/17/2020,11/16/2020,Y,,903
+N/A,3,Project 3,Milestone 2,4/30/2019,3/25/2021,1/1/2021,4/1/2021,N,,1215
+N/A,4,Project 4,Milestone 1,1/30/2020,9/12/2021,10/12/2021,12/4/2021,N,,100

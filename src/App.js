@@ -24,6 +24,10 @@ import Settings from "./Settings";
 import numCompletedProjectsPerYear from './numCompletedProjectsPerYear';
 import findFiscalYear from './findFiscalYear';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import Button from '@material-ui/core/Button';
+import firebase from 'firebase';
+import 'firebase/storage';
+import ExampleFile from './ExampleData_TimelinesWebApp.csv';
 
 
 const styles = {
@@ -31,6 +35,10 @@ const styles = {
     height: 30,
     borderColor: "crimson",
     backgroundColor: "green",
+  },
+  button: {
+    marginTop: 10,
+    marginRight: 30
   },
   paddingStyle: {
     marginTop: 10,
@@ -229,7 +237,7 @@ for (let i=0; i < projectSummary(groupedDataObject(data)).length; i++){
     successRate: true,
     slipRate: true,
     fiscalYear: true,
-    milestoneToggle: true
+    milestoneToggle: false
   });
 
 
@@ -277,9 +285,7 @@ for (let i=0; i < projectSummary(groupedDataObject(data)).length; i++){
     let filteredSlipRatePerctgArray = slipRatePerctgArray.filter(
       (slipRateVal) => slipRateVal !== isNaN
     );
-    
 
-    
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -294,7 +300,9 @@ for (let i=0; i < projectSummary(groupedDataObject(data)).length; i++){
 
       <div style={styles.paddingStyle}>
         <DataImporter onDataUpload={handleDataUpload} />
-        <button onClick={clearData}> Clear Data</button>
+        <Button size='small' variant="contained" style={styles.button} href={ExampleFile} download="Example_File.csv" >Download Example</Button>
+        <Button size='small' variant="contained" style={styles.button} onClick={clearData}>Clear Data</Button>
+
         <div>
           <Settings show={showStatus} setShow={setShowStatus} >
             {" "}

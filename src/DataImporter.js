@@ -8,15 +8,18 @@ const papaparseOptions = {
   transformHeader: (header) => header.toLowerCase().replace(/\W/g, "_")
 };
 
+  
+
 export function DataImporter({ onDataUpload }) {
     return (
     <div className="container">
             <CSVReader
             cssClass="react-csv-input"
-            label="Select CSV "
+            label="Upload CSV of Timelines Data "
             onFileLoaded={onDataUpload}
             parserOptions={papaparseOptions}
-            />
+            /> 
+
             
             </div>)
     

@@ -105,8 +105,6 @@ const useStyles = makeStyles({
 
 function Row({ index, rowData = {}, temp = {} }) {
     
-    const projectNames = Object.keys(temp)
-
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
 

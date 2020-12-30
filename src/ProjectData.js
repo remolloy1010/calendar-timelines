@@ -9,7 +9,7 @@ import Timeline, {
 import "./Timeline.css";
 import moment from "moment";
 //import TreeMenu from 'react-simple-tree-menu'
-import { Typography, createMuiTheme } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import _ from "lodash";
 import Settings from './Settings'
 // import groupedDataObject from './groupedDataObject'
@@ -22,17 +22,6 @@ const ICON_HEIGHT = 12;
 const ICON_MARGIN_LEFT = -ICON_WIDTH / 2;
 const ICON_MARGIN_TOP = 3;
 const LEFT_SIDEBAR_WIDTH = 300; 
-
-const theme = createMuiTheme({
-  overrides: {
-    MuiTypography: {
-      text: {
-        color: "white",
-        marginTop: 10,
-      },
-    },
-  },
-});
 
 const styles = {
   iconStyle: {
@@ -80,7 +69,6 @@ const styles = {
   },
 };
 
-const today = Date.now();
 const startOfMonth = moment().startOf("month");
 const oneYearLater = moment().endOf("month").add(1, "years");
 
@@ -119,9 +107,6 @@ function isProjectCompleteSolidColor(
 function ProjectData({ data, projectSummary, groupedDataObject, show, setShow }) {
   const projectNamesList = Object.keys(groupedDataObject(data));
   console.log('project summary:', projectSummary(groupedDataObject(data)))
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
   
   let groups = [];
   let items = [];
@@ -274,10 +259,6 @@ function ProjectData({ data, projectSummary, groupedDataObject, show, setShow })
 
   /////////////////////////////////// TEST BRANCH /////////////////////////////
 
-
-  
-
-  var groupedData = _.groupBy(data, "project");
   console.log("data", data);
   console.log("groups", groups);
   console.log("items", items);
