@@ -12,7 +12,7 @@
     "firebase": "^7.17.2",
     "interactjs": "^1.9.13",
     "lodash": "^4.17.19",
-    "moment": "^2.25.3",
+    "moment": "^2.29.4",
     "react": "^16.13.1",
     "react-calendar-timeline": "^0.26.7",
     "react-csv-reader": "^3.0.6",
